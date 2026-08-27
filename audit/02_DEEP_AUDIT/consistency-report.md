@@ -151,20 +151,11 @@ Architecture diagrams can be read as runtime dependency chains while implementat
 ### CONFLICT-011 — P0 Manual Transfer depends on Support, but full Support is scheduled in P1
 **Severity:** 🔴 Critical
 
-Implementation Roadmap places:
-
-```text
-P0.07 Manual Transfer
-→ Support Ticket Reference
-→ Proof Attachment
-→ Admin Approval
-```
-
-but places the main Support Center at `P1.06`.
+Implementation Roadmap places P0.07 Manual Transfer with Support Ticket Reference, Proof Attachment and Admin Approval, but the complete Support Center is scheduled later at Slice 24 / P1.06.
 
 **Risk:** P0 cannot satisfy its own Manual Transfer acceptance gate without an explicitly defined minimal Support capability in P0.
 
-**Required resolution:** either introduce a clearly scoped `P0 Support Payment Verification` capability before/inside P0.07, or move Manual Transfer out of P0. Final choice must be recorded as an implementation decision.
+**Required resolution:** introduce a clearly scoped P0 Support Payment Verification capability before/inside P0.07, or move Manual Transfer out of P0. Final choice must be recorded as an implementation decision.
 
 **Affected:** Final Vertical Slice Order, Implementation Roadmap, Payment, Support requirements.
 
@@ -200,6 +191,28 @@ Planner's Content Slot field list includes downstream references such as `script
 **Required resolution:** distinguish stable cross-domain references from owned state. Downstream IDs should be references/links, not imply ownership by Content Context/Planner.
 
 **Affected:** Contracts #9/#11, Architecture, Blueprint/Asset/Editor implementation.
+
+### CONFLICT-015 — PRD summary still couples entitlement access to Role
+**Severity:** 🔴 Critical
+
+The PRD's final comparison table states that core feature access follows `membership/role`, even though the same PRD and Business Decision Register establish Role as permission/access control and Membership/Product/Entitlement as commercial capability.
+
+**Risk:** this wording can cause an AI implementation to treat Role as a commercial entitlement source.
+
+**Required resolution:** rewrite the summary terminology so entitlement/capability access is determined by Entitlement, while Role determines authorization to perform the operation.
+
+**Affected:** PRD final summary/decision table, Contract #2/#4, Architecture.
+
+### CONFLICT-016 — Final Vertical Slice Order status is internally ambiguous
+**Severity:** 🟡 Medium
+
+The document is titled `Final Vertical Slice Order`, but its status is `Final Build Sequencing Draft`.
+
+**Risk:** AI Builder may not know whether this is locked sequencing or still provisional.
+
+**Required resolution:** explicitly choose `FINAL` or `DRAFT` and define whether the sequence can change without a formal change decision.
+
+**Affected:** Final Vertical Slice Order, Roadmap, Constitution/authority metadata.
 
 ## Completeness Gaps
 
@@ -356,7 +369,7 @@ Logging/correlation requirements exist, but no canonical observability matrix de
 ### GAP-026 — Per-slice dependency matrix reconciliation
 **Severity:** 🟠 High
 
-Vertical Slice Order and Implementation Roadmap use related but not identical slice groupings/IDs. A canonical mapping is needed so `Slice 07`, `P0.07`, etc. cannot refer to different scopes.
+Vertical Slice Order and Implementation Roadmap use related slice groupings and should be reconciled in one canonical mapping, even where the numbering appears aligned in the current documents.
 
 ### GAP-027 — Asset / Editor / Export state ownership and handoff
 **Severity:** 🔴 Critical
@@ -388,9 +401,47 @@ Configuration identifies High/Critical settings and suggests confirmation/step-u
 
 Planner defines plan timezone; Storage uses retention timestamps; subscription/billing uses cycle dates. A platform-wide rule for authoritative timestamps, user timezone, market timezone, billing timezone and DST handling is not fully centralized.
 
+### GAP-033 — Entitlement `remaining_amount` source of truth
+**Severity:** 🟡 Medium
+
+Contract #4 describes `remaining_amount` as potentially calculated/stored while also maintaining `granted_amount` and `consumed_amount`.
+
+**Risk:** multiple writable representations can drift.
+
+**Required addition:** define whether remaining is derived (`granted - committed consumption + adjustments`) or a ledger projection with strict reconciliation rules.
+
+### GAP-034 — Order fulfillment failure state machine
+**Severity:** 🟠 High
+
+Order has `PAID` and `FULFILLED`, but the complete behavior when payment is paid and entitlement fulfillment fails, times out, or is partially completed is not centralized.
+
+**Required addition:** define fulfillment state, retry/reconciliation behavior, idempotency and operational recovery.
+
+### GAP-035 — Refund state transitions after fulfillment
+**Severity:** 🟡 Medium
+
+Payment defines refund states and Entitlement defines reversal separately, but the complete cross-domain transition from fulfilled purchase → refund → entitlement reversal/adjustment → referral adjustment is not represented as one explicit workflow.
+
+### GAP-036 — Notification delivery state vs read state
+**Severity:** 🟡 Medium
+
+Notification Contract includes `READ` alongside delivery states such as `PENDING`, `SENT`, and `FAILED`. Read/unread is a recipient interaction state, not the same dimension as delivery.
+
+**Required addition:** separate delivery lifecycle from recipient read state.
+
+### GAP-037 — Provider capability vs capability registry ownership
+**Severity:** 🟡 Medium
+
+Contract #6 defines `ProviderCapability` and Contract #4 defines product capability references, but there is no canonical capability vocabulary connecting Provider Capability, Product Capability, Entitlement Capability and execution Capability.
+
+### GAP-038 — Source identity for raw concepts
+**Severity:** 🟡 Medium
+
+Analyzer lists `Raw Concept` as a source class while Research Source Identity is designed around external/persistent source identity. Need explicit identity semantics for internally authored concepts.
+
 ## Audit Method Note
 
-These findings are a working inventory. Before any correction, each finding must be verified against all affected source documents. Findings may be reclassified, merged, split, downgraded or rejected during review.
+These findings are a working inventory. Before any correction, each finding must be verified against all affected source documents and discussed with the project owner. Findings may be merged, split, downgraded, rejected or converted into formal decisions.
 
 ## Rules Going Forward
 
