@@ -6,7 +6,7 @@
 - `[ ] NOT STARTED` — this audit has not yet been performed.
 - `[!] BLOCKED / WAITING` — cannot be finalized until a decision, source document, or owner verification exists.
 
-> **Important:** `[x]` does not mean the finding is approved/final. Findings remain working findings until reviewed by the project owner.
+> **Important:** `[x]` means the audit/checking work for that item is complete. It does **not** mean the finding or proposed solution is approved/final.
 
 ## Rules
 - `original/` immutable during audit.
@@ -31,14 +31,14 @@
 - [x] COMPLETE — Verification Pass 01
 - [x] COMPLETE — Verification Pass 02 — Critical & High
 - [x] COMPLETE — Verification Pass 03 — Medium/Low + referenced-document verification
-- [~] PARTIAL — Terminology audit: terminology issues were identified, but a dedicated full terminology sweep is still required
-- [~] PARTIAL — Lifecycle/state audit: key lifecycle gaps were identified, but a dedicated full state-machine sweep is still required
-- [~] PARTIAL — Cross-contract audit: major cross-domain risks were checked, but the complete contract matrix is not yet closed
-- [~] PARTIAL — UI/Design consistency audit: relevant UI/design references were checked, but full screen-to-contract audit is still required
-- [~] PARTIAL — Operations consistency audit: operational references were checked, but full operations-to-architecture audit is still required
+- [~] PARTIAL — Terminology audit: issues were identified in earlier passes; a dedicated exhaustive terminology sweep is still required
+- [~] PARTIAL — Lifecycle/state audit: key lifecycle gaps were identified; a dedicated exhaustive state-machine sweep is still required
+- [~] PARTIAL — Cross-contract audit: major cross-domain risks were checked; the complete contract matrix is not yet closed
+- [~] PARTIAL — UI/Design consistency audit: relevant UI/design references were checked; full screen-to-contract audit is still required
+- [~] PARTIAL — Operations consistency audit: operational references were checked; full operations-to-architecture audit is still required
 
 ### Why the five items above are still open
-They were intentionally **not marked COMPLETE** in Pass 01–03. Earlier passes were finding/verification passes, not dedicated exhaustive audits of those dimensions. They remain open so the checklist does not falsely imply complete coverage.
+They were intentionally **not marked COMPLETE** in Pass 01–03. Earlier passes were finding/verification passes, not dedicated exhaustive audits of those dimensions. `[~] PARTIAL` means **some work has been done, but the dedicated audit is not complete**.
 
 ## Critical/High Verification Results
 - [x] COMPLETE — Role ↔ Membership/Entitlement verified
@@ -83,47 +83,51 @@ They were intentionally **not marked COMPLETE** in Pass 01–03. Earlier passes 
 - [x] COMPLETE — GAP-038 raw concept identity → merged into GAP-028
 
 ## Phase 3 — Full Completeness Audit
-- [x] COMPLETE — Findings collected across the identified completeness categories
-- [~] PARTIAL — Findings are collected, but each proposed missing registry/contract is not yet a final design decision
 
-### Completeness items requiring reconciliation/decision
-- [ ] NOT STARTED — Canonical Capability Registry
-- [ ] NOT STARTED — Canonical Permission Registry
-- [ ] NOT STARTED — Canonical Configuration Key Registry
-- [ ] NOT STARTED — Canonical State Machine Index
-- [ ] NOT STARTED — Canonical Event Catalog
-- [ ] NOT STARTED — Canonical API Contract Registry
-- [ ] NOT STARTED — Canonical Entity Ownership Registry
-- [ ] NOT STARTED — Concrete per-slice specifications
-- [ ] NOT STARTED — Subscription Entity + Lifecycle Contract
-- [ ] NOT STARTED — Support Contract / explicit minimal P0 Support ownership
-- [ ] NOT STARTED — Referral/Milestones Contract
-- [ ] NOT STARTED — Analytics Contract
-- [ ] NOT STARTED — Asset Preparation Contract
-- [ ] NOT STARTED — Editor Contract
-- [ ] NOT STARTED — Export Contract
-- [ ] NOT STARTED — Tenant/White-label Contract
-- [ ] NOT STARTED — Security/Content Protection Contract
-- [ ] NOT STARTED — Market/Localization/Currency Contract
-- [ ] NOT STARTED — Subscription/package allocation schedule
-- [ ] NOT STARTED — Product purchase eligibility matrix
-- [ ] NOT STARTED — Refund ↔ Entitlement reversal policy
-- [ ] NOT STARTED — Provider failure ↔ entitlement reservation/commit/release model
-- [ ] NOT STARTED — Event aggregate/partition key catalog
-- [ ] NOT STARTED — API error/code registry
-- [ ] NOT STARTED — Account/data deletion & privacy lifecycle
-- [ ] NOT STARTED — Backup/restore & disaster recovery acceptance criteria
-- [ ] NOT STARTED — Cross-domain observability matrix
-- [ ] NOT STARTED — Research Source vs raw concept/media persistence rule
-- [ ] NOT STARTED — Own Content Intelligence / Analytics ownership boundary
-- [ ] NOT STARTED — White-label activation boundary
-- [ ] NOT STARTED — Security-sensitive configuration approval workflow
-- [ ] NOT STARTED — Platform-wide time/clock authority
-- [ ] NOT STARTED — Entitlement remaining_amount source-of-truth rule
-- [ ] NOT STARTED — Order fulfillment failure/recovery state machine
-- [ ] NOT STARTED — Refund-after-fulfillment workflow
-- [ ] NOT STARTED — Notification delivery vs read-state separation
-- [ ] NOT STARTED — Provider/Product/Entitlement capability vocabulary
+### Phase 3 summary
+- [x] COMPLETE — Completeness categories were audited and findings were collected.
+- [~] PARTIAL — Findings are verified working findings, but each proposed missing registry/contract still requires Source-of-Truth reconciliation and an explicit design decision.
+
+> **Important:** The items below are **not NOT STARTED audits**. They are **verified/identified completeness gaps awaiting decision**. `NOT STARTED` here means **the corrective design/decision work has not started**, not that the underlying gap was never audited.
+
+### Completeness items — verified gap, decision pending
+- [!] BLOCKED — VERIFIED GAP — Canonical Capability Registry (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Canonical Permission Registry (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Canonical Configuration Key Registry (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Canonical State Machine Index (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Canonical Event Catalog (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Canonical API Contract Registry (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Canonical Entity Ownership Registry (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Concrete per-slice specifications (decision/production plan pending)
+- [!] BLOCKED — VERIFIED GAP — Subscription Entity + Lifecycle Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Support Contract / explicit minimal P0 Support ownership (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Referral/Milestones Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Analytics Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Asset Preparation Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Editor Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Export Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Tenant/White-label Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Security/Content Protection Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Market/Localization/Currency Contract (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Subscription/package allocation schedule (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Product purchase eligibility matrix (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Refund ↔ Entitlement reversal policy (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Provider failure ↔ entitlement reservation/commit/release model (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Event aggregate/partition key catalog (decision pending)
+- [!] BLOCKED — VERIFIED GAP — API error/code registry (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Account/data deletion & privacy lifecycle (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Backup/restore & disaster recovery acceptance criteria (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Cross-domain observability matrix (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Research Source vs raw concept/media persistence rule (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Own Content Intelligence / Analytics ownership boundary (decision pending)
+- [!] BLOCKED — VERIFIED GAP — White-label activation boundary (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Security-sensitive configuration approval workflow (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Platform-wide time/clock authority (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Entitlement remaining_amount source-of-truth rule (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Order fulfillment failure/recovery state machine (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Refund-after-fulfillment workflow (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Notification delivery vs read-state separation (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Provider/Product/Entitlement capability vocabulary (decision pending)
 
 ## Phase 4 — Source-of-Truth Reconciliation
 - [ ] NOT STARTED — Create/update `03_DECISIONS/source-of-truth.md` with verified decisions only
@@ -173,7 +177,7 @@ audit/
 ```text
 Phase 1 — Inventory & Authority          COMPLETE except reconciliation
 Phase 2 — Deep Cross-Document Audit      PARTIAL / dedicated dimension audits remain
-Phase 3 — Full Completeness Audit        FINDINGS COLLECTED / decisions pending
+Phase 3 — Full Completeness Audit        FINDINGS COLLECTED / resolution pending
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
 Phase 6 — Final Verification             PENDING
