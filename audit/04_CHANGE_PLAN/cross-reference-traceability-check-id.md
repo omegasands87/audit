@@ -1,12 +1,13 @@
 # Phase 5 — Step 9: Cross-Reference & Traceability Check
 
 ## Status
-COMPLETE
+**COMPLETE**
 
 ## Checks
 - Final Business Decision Register remains highest authority for locked business decisions.
 - Phase 4 Source-of-Truth remains authority map.
-- Phase 5 correction groups C-01–C-10 have downstream targets.
+- C-01–C-10 each has a documented correction target.
+- Working final-document set exists under `working/`.
 - Role/Permission and Membership/Product/Entitlement are separated.
 - Agency Mode is separated from System Role.
 - Research/Analyzer ownership is explicit.
@@ -18,8 +19,20 @@ COMPLETE
 - Event retry/DLQ/replay is explicit.
 - Content production handoffs are explicit.
 - Registry layer does not replace semantic domain authority.
-- UI and Operations corrections have dedicated documents.
+- UI and Operations corrections have separate documents.
+- Final-document synchronization matrix maps each working document to its authority.
+- Build Rules trace implementation back to approved authority.
 - `original/` remains immutable.
 
-## Unresolved-by-design items
-Detailed final prose/API schemas/contract revisions are downstream document-synthesis work; this check verifies the correction mapping and authority trace, not that every final document has already been regenerated.
+## Traceability Chain
+
+```text
+Business Decision
+ → Phase 4 Source of Truth
+ → Phase 5 Correction Group
+ → Working Final Document
+ → Implementation Rule
+```
+
+## Result
+All Phase 5 correction targets have a traceable downstream working-document destination. Final Verification remains responsible for re-auditing the corrected set.
