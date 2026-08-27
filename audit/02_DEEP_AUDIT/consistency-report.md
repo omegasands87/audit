@@ -266,6 +266,47 @@ The UI/Design audit reviewed product/page intent, auth/session state, entitlemen
 
 **UI deduplication rule:** UI IDs are audit trace IDs. They are not automatically new project findings when they reinforce existing findings from Terminology, Lifecycle, Cross-Contract, or Completeness audits.
 
+## Operations Consistency Audit
+
+**Status: COMPLETE — dedicated Operations audit performed; findings recorded; reconciliation pending.**
+
+The Operations audit checked the operational documents against Core Architecture V1, including environment separation, infrastructure/provider boundaries, database migration, storage, workers/queues, webhooks, secrets/configuration, monitoring/observability, backup/DR, and VPS migration/rollback.
+
+### Operations results
+
+| ID | Area | Result | Disposition |
+|---|---|---|---|
+| OPS-001 | Architecture ↔ Infrastructure | PASS | Consistent separation of logical architecture and deployment infrastructure |
+| OPS-002 | Environment separation | PASS | Local/Development/Staging/Production model is consistent |
+| OPS-003 | Domain ↔ infrastructure ownership | PASS | Provider/storage/auth boundaries align with architecture |
+| OPS-004 | Database migration | PASS | Migration lifecycle aligns with architecture |
+| OPS-005 | Storage lifecycle | GAP | Reinforces LIFECYCLE-006 |
+| OPS-006 | Worker / Queue operations | GAP | Reinforces LIFECYCLE-005 |
+| OPS-007 | Webhook operations | GAP | Reinforces payment/event findings |
+| OPS-008 | Secrets / configuration | CLARIFICATION GAP | Operational rotation/revocation/acceptance procedure incomplete |
+| OPS-009 | Monitoring / observability | GAP | Reinforces observability completeness gap |
+| OPS-010 | Backup / disaster recovery | GAP / DECISION | RPO/RTO targets require explicit decision |
+| OPS-011 | VPS migration / rollback | GAP | Complete failback matrix not specified |
+
+**Operations deduplication rule:** OPS IDs are trace IDs. Known reinforcements must be reconciled against existing lifecycle/payment/observability/backup findings rather than automatically counted as new independent findings.
+
+## Phase 2 Closure Check
+
+**Status: COMPLETE — all five dedicated Phase 2 audit activities have been performed and their outputs/traces are recorded. Findings remain working findings pending Source-of-Truth reconciliation.**
+
+Closure criteria satisfied:
+
+- Terminology dedicated audit complete.
+- Lifecycle/State dedicated audit complete.
+- Cross-Contract dedicated audit complete.
+- UI/Design dedicated audit complete.
+- Operations dedicated audit complete.
+- Cross-audit duplicate/reinforcement relationships documented.
+- No corrective source-document changes applied.
+- `original/` remains immutable.
+
+Phase 2 closure does **not** mean findings are resolved. Resolution belongs to Phase 4 and later controlled correction.
+
 ## Additional Verified Findings From Later Passes
 
 Later verification passes established additional working findings including missing authoritative Subscription lifecycle contract; Security & Content Protection source; Asset Preparation/Editor/Export contract coverage; canonical capability/permission/configuration/state/event/API/entity-ownership registries; purchase eligibility; subscription allocation; entitlement failure/reversal; provider failure/consumption semantics; refund-after-fulfillment; order fulfillment failure/reconciliation; Own Content Intelligence/Analytics ownership; White-label activation boundary; privacy lifecycle; backup/DR acceptance criteria; observability; notification delivery/read-state separation; platform-wide time authority; raw research input persistence; and security-sensitive configuration approval workflow.
@@ -278,7 +319,7 @@ All findings are recorded first. No corrective change is applied to `original/` 
 
 ```text
 Phase 1 — Inventory & Authority          PARTIAL / RECONCILIATION OPEN
-Phase 2 — Deep Cross-Document Audit      IN PROGRESS / UI complete / Operations pending
+Phase 2 — Deep Cross-Document Audit      COMPLETE — all dedicated audit passes complete; reconciliation pending
 Phase 3 — Full Completeness Audit        FINDINGS COMPLETE / RESOLUTION OPEN
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
