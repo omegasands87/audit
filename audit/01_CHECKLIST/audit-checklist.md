@@ -36,7 +36,7 @@
 - [x] COMPLETE — Lifecycle/state audit — dedicated sweep completed; lifecycle gaps and cross-domain closure requirements recorded
 - [x] COMPLETE — Cross-contract audit — dedicated cross-contract sweep completed; findings recorded; reconciliation remains pending
 - [x] COMPLETE — UI/Design consistency audit — dedicated sweep completed; findings recorded; reconciliation remains pending
-- [~] PARTIAL — Operations consistency audit: operational references were checked; full operations-to-architecture audit is still required
+- [x] COMPLETE — Operations consistency audit — dedicated operations-to-architecture sweep completed; findings recorded; reconciliation remains pending
 
 ### Cross-Contract Audit Result
 - [x] COMPLETE — Core Contracts #1–#13 reviewed as a connected system
@@ -72,8 +72,19 @@
 - [x] COMPLETE — Notification/read-state behavior reviewed
 - [x] COMPLETE — UI findings deduplicated/reinforced against existing findings
 
-### Why the remaining item is still open
-Operations remains `[~] PARTIAL` because a dedicated exhaustive operations-to-architecture audit is still required. `[~] PARTIAL` means **some work has been done, but the dedicated audit is not complete**.
+### Operations Audit Result
+- [x] COMPLETE — Environment model reviewed against architecture
+- [x] COMPLETE — Infrastructure/provider boundaries reviewed
+- [x] COMPLETE — Database migration operations reviewed
+- [x] COMPLETE — Storage lifecycle operations reviewed
+- [x] COMPLETE — Worker/queue operations reviewed
+- [x] COMPLETE — Webhook operations reviewed
+- [x] COMPLETE — Secrets/configuration operations reviewed
+- [x] COMPLETE — Monitoring/observability operations reviewed
+- [x] COMPLETE — Backup/disaster recovery operations reviewed
+- [x] COMPLETE — VPS migration/rollback operations reviewed
+- [x] COMPLETE — Operations findings deduplicated/reinforced against existing findings
+- [x] COMPLETE — Operations audit report recorded in `02_DEEP_AUDIT/operations-audit.md`
 
 ## Terminology Audit Results
 - [x] COMPLETE — TERM-001 Membership ↔ Subscription — ambiguity/gap verified; canonicalization pending
@@ -225,6 +236,7 @@ audit/
 │   ├── lifecycle-state-audit.md
 │   ├── cross-contract-audit.md
 │   ├── ui-design-audit.md
+│   ├── operations-audit.md
 │   ├── verification-pass-01.md
 │   ├── verification-pass-02-critical-high.md
 │   └── verification-pass-03-medium-low-references.md
@@ -239,7 +251,7 @@ audit/
 
 ```text
 Phase 1 — Inventory & Authority          COMPLETE except reconciliation
-Phase 2 — Deep Cross-Document Audit      IN PROGRESS / UI complete / Operations pending
+Phase 2 — Deep Cross-Document Audit      COMPLETE — all dedicated audit passes complete; reconciliation pending
 Phase 3 — Full Completeness Audit        FINDINGS COLLECTED / resolution pending
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
@@ -252,6 +264,7 @@ Terminology Audit: COMPLETE (remediation pending)
 Lifecycle/State Audit: COMPLETE (cross-domain remediation pending)
 Cross-Contract Audit: COMPLETE (reconciliation pending)
 UI/Design Audit: COMPLETE (reconciliation pending)
+Operations Audit: COMPLETE (reconciliation pending)
 Working findings: NOT FINAL
 original/: IMMUTABLE
 ```
