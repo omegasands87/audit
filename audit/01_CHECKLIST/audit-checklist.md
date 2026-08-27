@@ -86,6 +86,20 @@
 - [x] COMPLETE — Operations findings deduplicated/reinforced against existing findings
 - [x] COMPLETE — Operations audit report recorded in `02_DEEP_AUDIT/operations-audit.md`
 
+### Phase 2 Closure Check
+- [x] COMPLETE — Terminology dedicated audit completed
+- [x] COMPLETE — Lifecycle / State dedicated audit completed
+- [x] COMPLETE — Cross-Contract dedicated audit completed
+- [x] COMPLETE — UI / Design dedicated audit completed
+- [x] COMPLETE — Operations dedicated audit completed
+- [x] COMPLETE — All five dedicated audit outputs are present or explicitly tracked
+- [x] COMPLETE — Cross-audit findings reviewed for duplicate/reinforcement relationships
+- [x] COMPLETE — Findings remain working findings pending Source-of-Truth reconciliation
+- [x] COMPLETE — `original/` confirmed immutable during Phase 2 audits
+
+## Why Phase 2 findings remain open
+The dedicated Phase 2 audits are complete as **audit activities**. Their findings are intentionally not marked resolved. Resolution, authority assignment, and business/architecture decisions belong to Phase 4 Source-of-Truth Reconciliation and later controlled correction.
+
 ## Terminology Audit Results
 - [x] COMPLETE — TERM-001 Membership ↔ Subscription — ambiguity/gap verified; canonicalization pending
 - [x] COMPLETE — TERM-002 Product / Membership Product / Package / Add-on — consistent
