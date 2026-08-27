@@ -1,139 +1,67 @@
 # Audit Checklist — Repository `original`
 
-## Purpose
-Ensure all documents in `original/` are consistent, complete, have clear ownership, and are safe to use as an AI Builder implementation baseline.
-
 ## Rules
-- `original/` is immutable during audit.
-- Audit cross-document consistency, not only individual files.
-- Record findings before corrective edits.
-- Classify findings as `CONFLICT` or `GAP`.
-- Findings are not final until verified and reviewed with the project owner.
-- Do not silently resolve unresolved business decisions.
-- Update this single checklist as the audit progresses.
+- `original/` immutable during audit.
+- Record findings before corrections.
+- Findings are not final until verified and reviewed by project owner.
+- Do not silently resolve business decisions.
+- Maintain this checklist as the single audit progress tracker.
 
-## 1. Inventory & Authority
+## Phase 1 — Inventory & Authority
 - [x] Inventory all files in `original/`
-- [x] Group files by Governance / Product / Architecture / Core Contracts / Implementation / Design / Operations
+- [x] Group files by domain/document type
 - [x] Identify Draft / Baseline / Final status
 - [x] Identify Source-of-Truth declarations
-- [x] Establish working authority hierarchy
-- [ ] Reconcile all authority conflicts
+- [x] Establish authority hierarchy
+- [ ] Reconcile authority/status conflicts
 - [ ] Verify all referenced source documents exist
 
-## 2. Governance & Source of Truth
-- [x] Check hierarchy of authority
-- [x] Check Final / Baseline / Draft status
-- [ ] Reconcile all conflicting authority/status statements
-- [ ] Verify every referenced source document actually exists
-- [ ] Verify every domain has an authoritative contract or explicit owner
-
-## 3. Product / PRD
-- [x] Business Decision alignment — preliminary
-- [x] Feature scope — preliminary
-- [x] Billing / entitlement — preliminary
-- [x] Research / Planner / Analyzer / Blueprint — preliminary
-- [ ] Complete detailed requirement audit
+## Phase 2 — Deep Cross-Document Audit
+- [x] Initial consistency audit
+- [x] Initial completeness audit
+- [x] Findings recorded before correction
+- [x] Verification Pass 01
+- [x] Verification Pass 02 — Critical & High
+- [ ] Complete remaining Medium/Low verification
 - [ ] Complete terminology audit
 - [ ] Complete lifecycle/state audit
-- [ ] Complete White-label / Agency audit
-- [ ] Complete localization / market / currency audit
-- [ ] Verify all PRD-referenced technical source documents exist
-
-## 4. Core Contracts #1–#13
-- [x] Scope — preliminary
-- [x] Ownership — preliminary
-- [x] Entity definitions — preliminary
-- [x] Lifecycle/state — preliminary
-- [x] Boundaries/dependencies — preliminary
 - [ ] Complete cross-contract audit
-- [ ] Complete completeness audit
-- [ ] Complete DoD/acceptance audit
-- [ ] Verify subscription ownership/lifecycle
-- [ ] Verify missing-domain contract coverage
+- [ ] Complete UI/Design consistency audit
+- [ ] Complete Operations consistency audit
 
-## 5. Cross-Contract Consistency
-- [x] Identity ↔ Role & Permission — preliminary
-- [x] Role ↔ Membership — conflict found
-- [x] Product ↔ Entitlement — preliminary
-- [ ] Order ↔ Payment
-- [ ] Payment ↔ Refund
-- [ ] Payment ↔ Referral
-- [ ] Payment ↔ Entitlement
-- [x] Provider ↔ consuming domains — preliminary
-- [ ] Storage ↔ business domains
-- [ ] Event ↔ Audit ↔ Notification
-- [x] Workspace ↔ Tenant — preliminary
-- [x] Research ↔ Analyzer — conflict/gap found
-- [x] Planner ↔ Content Slot — conflict found
-- [ ] Content Slot ↔ Blueprint
-- [ ] Blueprint ↔ Asset Generation
-- [x] Configuration ↔ Product — preliminary
-- [x] Configuration ↔ Permission — conflict/gap found
-- [ ] Support ↔ Payment
-- [x] Agency ↔ normal member billing — preliminary
-- [ ] Subscription ↔ Product ↔ Payment ↔ Entitlement
-- [ ] Analytics ↔ Research ↔ Planner
-- [ ] Asset ↔ Editor ↔ Export ↔ Storage
-- [ ] Refund ↔ Entitlement ↔ Referral
+## Critical/High Verification Results
+- [x] Role ↔ Membership/Entitlement verified
+- [x] Agency Mode semantics verified as terminology/business-model risk
+- [x] PRD feature-access wording risk verified
+- [x] Research ↔ Analyzer canonical-source boundary verified
+- [x] Subscription authority/lifecycle gap verified
+- [x] Security & Content Protection source gap verified
+- [x] Capability/Permission/Configuration registry gaps verified
+- [x] State/Event/API/Entity ownership registry gaps verified
+- [x] Planner ↔ Content Context command boundary verified
+- [x] Subscription allocation schedule gap verified
+- [x] Purchase eligibility matrix gap verified
+- [x] Entitlement failure/reversal gap verified
+- [x] Provider failure ↔ entitlement consumption gap verified
+- [x] Refund ↔ Entitlement ↔ Referral workflow gap verified
+- [x] Order fulfillment failure/reconciliation gap verified
+- [x] Own Content Intelligence ↔ Analytics ownership gap verified
+- [x] White-label activation boundary gap verified
+- [x] Data deletion/privacy lifecycle gap verified
+- [x] Concrete per-slice specification gap verified
+- [x] Asset/Editor/Export contract coverage gap verified/reclassified as contract-coverage issue
+- [x] Manual Transfer ↔ Support critical conflict RECLASSIFIED: P0 has a dedicated minimal Support Payment Verification slice; full Support remains P1
 
-## 6. Architecture
-- [x] Domain ownership vs Core Contracts — preliminary
-- [x] Engine vs Domain — conflict/clarification found
-- [ ] Runtime dependency graph
-- [ ] Build dependency graph
-- [ ] Database ownership
-- [ ] Cross-domain mutation
-- [ ] Event/outbox strategy
-- [ ] Worker boundaries
-- [x] Provider boundary — preliminary
-- [ ] Security boundary
-- [ ] Tenant isolation
-- [ ] Configuration vs security boundary
-- [ ] Vertical-slice dependency model
-- [ ] Architecture coverage for all required domains
+## Findings Reclassified / Removed
+- [x] Manual Transfer wording issue → terminology ambiguity, not business conflict
+- [x] Provider boundary issue → clarification gap, not direct conflict
+- [x] Workspace vs Research Workspace → relationship gap, not direct conflict
+- [x] Engine vs Domain → terminology/governance clarification
+- [x] Architecture vs build dependency → dependency taxonomy gap
+- [x] GAP-026 slice dependency mismatch → NOT VERIFIED in inspected roadmap/order
+- [x] GAP-038 raw concept identity → merged into GAP-028
 
-## 7. Implementation
-- [ ] Structure follows architecture
-- [ ] Business rules follow contracts
-- [ ] No duplicate entities/models
-- [ ] No duplicate service ownership
-- [ ] API matches contracts
-- [ ] State machines match contracts
-- [ ] Events match contracts
-- [ ] Config keys match configuration contract
-- [ ] Slice IDs/phases/dependencies are synchronized across implementation documents
-- [x] Framework for per-slice specification exists
-- [ ] Concrete per-slice specifications exist
-- [x] P0 Manual Transfer ↔ Support dependency conflict identified
-- [ ] P0 Manual Transfer ↔ Support dependency is resolved
-- [ ] Order fulfillment failure/recovery is specified
-
-## 8. Design / UI
-- [ ] UI terminology matches PRD
-- [ ] Role/permission UI matches authorization
-- [ ] Membership/product UI matches entitlement
-- [ ] Research → Planner → Analyzer → Blueprint flow matches contracts
-- [ ] UI does not imply unsupported capability
-- [ ] UI states/errors match backend state machines
-- [x] Content protection source document existence issue identified
-- [ ] Content protection UI/technical requirements have an authoritative source
-- [x] Agency Mode UI/commercial semantics conflict identified
-- [ ] Agency Mode semantics are reconciled
-
-## 9. Operations
-- [ ] Deployment matches architecture
-- [ ] Monitoring matches boundaries
-- [ ] Logging/audit matches security requirements
-- [ ] Backup/recovery matches ownership
-- [ ] Retention/purge matches policy
-- [ ] Provider failure/retry matches contracts
-- [ ] Runbooks match implementation
-- [ ] RPO/RTO and disaster recovery acceptance criteria defined
-- [ ] Production data deletion/privacy lifecycle defined
-- [ ] Environment/security controls cross-checked with Architecture
-
-## 10. Completeness Gaps
+## Phase 3 — Full Completeness Audit
 - [ ] Canonical Capability Registry
 - [ ] Canonical Permission Registry
 - [ ] Canonical Configuration Key Registry
@@ -141,13 +69,9 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [ ] Canonical Event Catalog
 - [ ] Canonical API Contract Registry
 - [ ] Canonical Entity Ownership Registry
-- [ ] Completed per-slice specifications
-- [ ] Research historical-observation phase mapping
-- [ ] Configuration precedence vs security boundary specification
-- [ ] Planner ↔ Content Context command boundary
-- [ ] Entitlement consumption failure/reversal matrix
+- [ ] Concrete per-slice specifications
 - [ ] Subscription Entity + Lifecycle Contract
-- [ ] Support Contract
+- [ ] Support Contract / explicit minimal P0 Support ownership
 - [ ] Referral/Milestones Contract
 - [ ] Analytics Contract
 - [ ] Asset Preparation Contract
@@ -165,7 +89,6 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [ ] Account/data deletion & privacy lifecycle
 - [ ] Backup/restore & disaster recovery acceptance criteria
 - [ ] Cross-domain observability matrix
-- [ ] Per-slice dependency mapping
 - [ ] Research Source vs raw concept/media persistence rule
 - [ ] Own Content Intelligence / Analytics ownership boundary
 - [ ] White-label activation boundary
@@ -176,26 +99,30 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [ ] Refund-after-fulfillment workflow
 - [ ] Notification delivery vs read-state separation
 - [ ] Provider/Product/Entitlement capability vocabulary
-- [ ] Raw Concept identity semantics
-- [ ] PRD/Architecture referenced-document existence audit
 
-## 11. Findings Management
-- [x] Findings recorded before correction
-- [x] Findings classified as CONFLICT or GAP
-- [x] Severity assigned
-- [ ] Every finding has verified evidence/reference
-- [ ] Every finding has final Source of Truth decision
-- [ ] Every finding mapped to required change
-- [ ] Project owner has reviewed findings
-- [ ] Findings marked final only after project owner verification
+## Phase 4 — Source-of-Truth Reconciliation
+- [ ] Create `03_DECISIONS/source-of-truth.md`
+- [ ] Review each verified Critical finding with project owner
+- [ ] Review each verified High finding with project owner
+- [ ] Record explicit decision/options/rationale
+- [ ] Define authoritative document for each decision
 
-## 12. Final Verification
+## Phase 5 — Controlled Corrections
+- [ ] Create change plan
+- [ ] Correct only non-`original/` working/corrected documents
+- [ ] Synchronize cross-references
+- [ ] Add missing authoritative contracts/registries where approved
+- [ ] Update implementation specifications
+
+## Phase 6 — Final Verification
+- [ ] Re-audit all corrected documents
 - [ ] All conflicts resolved
 - [ ] All gaps resolved or explicitly deferred
 - [ ] `original/` unchanged
-- [ ] Corrected documents separated from original
+- [ ] Corrected documents separated from baseline
 - [ ] Cross-references synchronized
-- [ ] Full cross-document audit passes
+- [ ] Full cross-document audit PASS
+- [ ] Project owner final verification
 
 ## Audit Output Structure
 
@@ -204,7 +131,9 @@ audit/
 ├── 01_CHECKLIST/
 │   └── audit-checklist.md
 ├── 02_DEEP_AUDIT/
-│   └── consistency-report.md
+│   ├── consistency-report.md
+│   ├── verification-pass-01.md
+│   └── verification-pass-02-critical-high.md
 ├── 03_DECISIONS/
 │   └── source-of-truth.md
 ├── 04_CHANGE_PLAN/
@@ -212,7 +141,7 @@ audit/
 └── 05_FINAL_VERIFICATION/
 ```
 
-## Current Phase
+## Current Status
 
 ```text
 Phase 1 — Inventory & Authority          COMPLETE
@@ -221,13 +150,8 @@ Phase 3 — Full Completeness Audit        IN PROGRESS
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
 Phase 6 — Final Verification             PENDING
-```
 
-## Current Working Finding Count
-
-```text
-CONFLICT — 16 recorded
-GAP      — 38 recorded
-
-Status: working findings, NOT FINAL
+Working findings: NOT FINAL
+Verification Pass 02: COMPLETE
+original/: IMMUTABLE
 ```
