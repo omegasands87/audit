@@ -14,7 +14,7 @@
 - [x] Identify Source-of-Truth declarations
 - [x] Establish authority hierarchy
 - [ ] Reconcile authority/status conflicts
-- [ ] Verify all referenced source documents exist
+- [x] Verify all referenced source documents exist / missing references documented
 
 ## Phase 2 — Deep Cross-Document Audit
 - [x] Initial consistency audit
@@ -22,7 +22,7 @@
 - [x] Findings recorded before correction
 - [x] Verification Pass 01
 - [x] Verification Pass 02 — Critical & High
-- [ ] Complete remaining Medium/Low verification
+- [x] Verification Pass 03 — Medium/Low + referenced-document verification
 - [ ] Complete terminology audit
 - [ ] Complete lifecycle/state audit
 - [ ] Complete cross-contract audit
@@ -51,6 +51,16 @@
 - [x] Concrete per-slice specification gap verified
 - [x] Asset/Editor/Export contract coverage gap verified/reclassified as contract-coverage issue
 - [x] Manual Transfer ↔ Support critical conflict RECLASSIFIED: P0 has a dedicated minimal Support Payment Verification slice; full Support remains P1
+
+## Pass 03 — Medium/Low + Missing References
+- [x] Medium findings reviewed against current `original/` evidence
+- [x] Low findings reviewed; no additional Low finding retained without sufficient evidence
+- [x] Repository tree checked for referenced documents
+- [x] Existing references distinguished from genuinely missing dedicated sources
+- [x] Missing Security & Content Protection source documented
+- [x] Missing dedicated domain-contract coverage documented
+- [x] Per-slice framework vs concrete slice specifications distinguished
+- [x] Pass 03 results recorded in Deep Audit
 
 ## Findings Reclassified / Removed
 - [x] Manual Transfer wording issue → terminology ambiguity, not business conflict
@@ -101,15 +111,16 @@
 - [ ] Provider/Product/Entitlement capability vocabulary
 
 ## Phase 4 — Source-of-Truth Reconciliation
-- [ ] Create `03_DECISIONS/source-of-truth.md`
+- [ ] Create/update `03_DECISIONS/source-of-truth.md` with verified decisions only
 - [ ] Review each verified Critical finding with project owner
 - [ ] Review each verified High finding with project owner
+- [ ] Review each verified Medium finding requiring a decision
 - [ ] Record explicit decision/options/rationale
 - [ ] Define authoritative document for each decision
 
 ## Phase 5 — Controlled Corrections
-- [ ] Create change plan
-- [ ] Correct only non-`original/` working/corrected documents
+- [ ] Create/update change plan after decisions
+- [ ] Correct only approved working/corrected documents
 - [ ] Synchronize cross-references
 - [ ] Add missing authoritative contracts/registries where approved
 - [ ] Update implementation specifications
@@ -133,7 +144,8 @@ audit/
 ├── 02_DEEP_AUDIT/
 │   ├── consistency-report.md
 │   ├── verification-pass-01.md
-│   └── verification-pass-02-critical-high.md
+│   ├── verification-pass-02-critical-high.md
+│   └── verification-pass-03-medium-low-references.md
 ├── 03_DECISIONS/
 │   └── source-of-truth.md
 ├── 04_CHANGE_PLAN/
@@ -145,13 +157,15 @@ audit/
 
 ```text
 Phase 1 — Inventory & Authority          COMPLETE
-Phase 2 — Deep Cross-Document Audit      IN PROGRESS
-Phase 3 — Full Completeness Audit        IN PROGRESS
+Phase 2 — Deep Cross-Document Audit      COMPLETE
+Phase 3 — Full Completeness Audit        COMPLETE (findings collected; resolution pending)
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
 Phase 6 — Final Verification             PENDING
 
-Working findings: NOT FINAL
+Verification Pass 01: COMPLETE
 Verification Pass 02: COMPLETE
+Verification Pass 03: COMPLETE
+Working findings: NOT FINAL
 original/: IMMUTABLE
 ```
