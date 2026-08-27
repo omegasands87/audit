@@ -34,12 +34,27 @@
 - [x] COMPLETE — Verification Pass 03 — Medium/Low + referenced-document verification
 - [x] COMPLETE — Terminology audit — exhaustive sweep completed; remediation remains pending
 - [x] COMPLETE — Lifecycle/state audit — dedicated sweep completed; lifecycle gaps and cross-domain closure requirements recorded
-- [~] PARTIAL — Cross-contract audit: major cross-domain risks were checked; the complete contract matrix is not yet closed
+- [x] COMPLETE — Cross-contract audit — dedicated cross-contract sweep completed; findings recorded; reconciliation remains pending
 - [~] PARTIAL — UI/Design consistency audit: relevant UI/design references were checked; full screen-to-contract audit is still required
 - [~] PARTIAL — Operations consistency audit: operational references were checked; full operations-to-architecture audit is still required
 
-### Why the remaining three items are still open
-They were intentionally **not marked COMPLETE** because dedicated exhaustive audits of those dimensions are still required. `[~] PARTIAL` means **some work has been done, but the dedicated audit is not complete**.
+### Cross-Contract Audit Result
+- [x] COMPLETE — Core Contracts #1–#13 reviewed as a connected system
+- [x] COMPLETE — Entity ownership relationships reviewed
+- [x] COMPLETE — Command/query authority relationships reviewed
+- [x] COMPLETE — Authorization vs entitlement boundaries reviewed
+- [x] COMPLETE — Lifecycle dependencies reviewed
+- [x] COMPLETE — Payment / fulfillment dependencies reviewed
+- [x] COMPLETE — Provider boundaries reviewed
+- [x] COMPLETE — Workspace / Planner / Content Context boundaries reviewed
+- [x] COMPLETE — Research / Analyzer boundary reviewed
+- [x] COMPLETE — Production pipeline boundary reviewed
+- [x] COMPLETE — Support / Manual Transfer sequencing reviewed
+- [x] COMPLETE — Subscription / Product / Entitlement relationship reviewed
+- [x] COMPLETE — Cross-contract findings deduplicated against existing findings
+
+### Why the remaining two items are still open
+They were intentionally **not marked COMPLETE** because dedicated exhaustive audits of UI/Design and Operations dimensions are still required. `[~] PARTIAL` means **some work has been done, but the dedicated audit is not complete**.
 
 ## Terminology Audit Results
 - [x] COMPLETE — TERM-001 Membership ↔ Subscription — ambiguity/gap verified; canonicalization pending
@@ -189,6 +204,7 @@ audit/
 │   ├── consistency-report.md
 │   ├── terminology-audit-preliminary.md
 │   ├── lifecycle-state-audit.md
+│   ├── cross-contract-audit.md
 │   ├── verification-pass-01.md
 │   ├── verification-pass-02-critical-high.md
 │   └── verification-pass-03-medium-low-references.md
@@ -203,7 +219,7 @@ audit/
 
 ```text
 Phase 1 — Inventory & Authority          COMPLETE except reconciliation
-Phase 2 — Deep Cross-Document Audit      PARTIAL / 3 dedicated dimension audits remain
+Phase 2 — Deep Cross-Document Audit      IN PROGRESS / Cross-Contract COMPLETE
 Phase 3 — Full Completeness Audit        FINDINGS COLLECTED / resolution pending
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
@@ -214,6 +230,7 @@ Verification Pass 02: COMPLETE
 Verification Pass 03: COMPLETE
 Terminology Audit: COMPLETE (remediation pending)
 Lifecycle/State Audit: COMPLETE (cross-domain remediation pending)
+Cross-Contract Audit: COMPLETE (reconciliation pending)
 Working findings: NOT FINAL
 original/: IMMUTABLE
 ```
