@@ -37,74 +37,40 @@ Implementation
 
 ## Phase 2 — Deep Audit Findings
 
+Historical findings are retained below. Later verification passes may reclassify a finding, but do not delete the evidence trail.
+
 ### CONFLICT-001 — Manual Transfer payment state
-**Severity:** 🔴 Critical
+**Severity:** 🔴 Critical (historical classification; later reclassified)
 
 Earlier wording uses `Payment Approved`; later final wording explicitly defines `Admin Approve Ticket → Payment = Paid` and says no separate payment approval is required.
 
-**Required resolution:** canonical flow should be:
-
-```text
-Order → Manual Transfer → Proof via Support Ticket
-→ Admin Approve Ticket → Payment = Paid → Entitlement Granted
-```
-
-**Affected:** Business Decision Register, Payment, Support, Implementation.
+**Current classification:** sequencing/contract clarification; not a proven direct business-rule conflict.
 
 ### CONFLICT-002 — Role vs Membership/Product configuration
 **Severity:** 🔴 Critical
 
 Core Contract #2 contains role-configuration examples associated with membership/product-like benefits, while Contract #4 and the Business Decision Register explicitly separate Role/Permission from Membership/Product/Entitlement.
 
-**Risk:** role assignment could accidentally grant commercial entitlement.
-
 **Required resolution:** Role owns authorization; Product/Membership/Entitlement owns commercial capability. Role defaults must not grant entitlement.
-
-**Affected:** Contract #2, Contract #4, PRD, Architecture.
 
 ### CONFLICT-003 — Content Slot ownership vs Planner mutation authority
 **Severity:** 🟠 High
 
 Content Slot is the stable production anchor owned by the Content Context boundary, while Planner is described as creating/updating slots.
 
-**Required resolution:** separate entity ownership from command authority:
-
-```text
-Content Context → owns Content Slot identity/lifecycle/context
-Planner → owns planning decisions and uses the approved Content Slot contract
-```
-
-Planner must not create a competing slot entity.
-
-**Affected:** Architecture, Contracts #9/#11/#12/#13.
+**Required resolution:** separate entity ownership from command authority.
 
 ### CONFLICT-004 — Research canonical evidence vs Analyzer source/evidence concepts
 **Severity:** 🔴 Critical
 
 Research is the canonical source/evidence layer, while Analyzer contains source/evidence/claim concepts that could be implemented as a second canonical model. Contract #12 requires Analyzer to use Research core entities.
 
-**Required resolution:**
-
-```text
-Research → canonical Source / Evidence / Research truth
-Analyzer → Analysis Run / Interpretation / Derived Output
-```
-
-**Affected:** PRD, Architecture, Contracts #10/#12.
+**Required resolution:** Research owns canonical source/evidence truth; Analyzer owns analysis runs and derived interpretation/output.
 
 ### CONFLICT-005 — Provider infrastructure vs domain-specific adapter boundary
-**Severity:** 🟠 High
+**Severity:** 🟠 High (historical classification; later reclassified)
 
-Provider Contract defines shared Provider Service/Pool/Adapter infrastructure, while Payment and other domains retain domain-specific provider behavior.
-
-**Required resolution:**
-
-```text
-Provider Infrastructure → registry, credentials, routing, health, retry/failover
-Consuming Domain → business operation, canonical business state, domain semantics
-```
-
-**Affected:** Architecture, Contract #6, Payment, Operations.
+**Current classification:** clarification gap, not proven direct conflict.
 
 ### CONFLICT-006 — Configuration scope vs business ownership
 **Severity:** 🟠 High
@@ -113,16 +79,10 @@ Configuration supports broad scopes including Product, Membership, Role, User, T
 
 **Required resolution:** Configuration owns values/schema/scope/version/effective value; consuming domains own meaning, validation, enforcement and lifecycle.
 
-**Affected:** Contract #3, Contract #2, Contract #4, Architecture.
-
 ### CONFLICT-007 — Workspace vs Research Workspace identity
-**Severity:** 🟡 Medium
+**Severity:** 🟡 Medium (historical classification; later reclassified)
 
-The documents state these are distinct concepts, but flows use both as working context.
-
-**Required resolution:** preserve separate entities and explicitly define their relationship/reference.
-
-**Affected:** PRD, Architecture, Contracts #9/#10.
+**Current classification:** relationship-definition gap, not direct conflict.
 
 ### CONFLICT-008 — Agency settlement balance vs normal member billing
 **Severity:** 🟡 Medium
@@ -131,25 +91,15 @@ Normal members do not use Top Up/PAYG Wallet/Deposit Balance, while Agency/White
 
 **Required resolution:** Agency settlement must be explicitly scoped and must not become a generic member wallet.
 
-**Affected:** Business Decision Register, Product/Entitlement, Payment, Architecture.
-
 ### CONFLICT-009 — Engine grouping vs bounded-domain ownership
-**Severity:** 🟡 Medium
+**Severity:** 🟡 Medium (historical classification; later reclassified)
 
-PRD groups functionality into Engines; Architecture/Core Contracts define bounded domains.
-
-**Required resolution:** Engine = product/feature grouping or orchestration concept; Domain/Bounded Context = authoritative ownership boundary.
-
-**Affected:** PRD, Architecture, Vertical Slice Order.
+**Current classification:** terminology/governance clarification, not direct conflict.
 
 ### CONFLICT-010 — Architecture dependency vs build dependency
-**Severity:** 🟡 Medium
+**Severity:** 🟡 Medium (historical classification; later reclassified)
 
-Architecture diagrams can be read as runtime dependency chains while implementation order also represents delivery prerequisites.
-
-**Required resolution:** distinguish runtime dependency, build dependency, data reference and event subscription.
-
-**Affected:** Architecture, Vertical Slice Order, Roadmap.
+**Current classification:** dependency taxonomy gap, not direct conflict.
 
 ## Completeness Gaps
 
@@ -213,6 +163,56 @@ Need explicit command-level contract for Content Slot operations, including owne
 
 Need explicit outcomes for success, failure, retry, timeout, provider failover, cancellation and reversal.
 
+## Terminology Verification
+
+### TERM-001 — Membership ↔ Subscription
+**Result:** AMBIGUITY / GAP
+
+The commercial Membership Product and subscription/membership lifecycle record are related but not sufficiently canonicalized.
+
+### TERM-002 — Product / Membership Product / Package / Add-on
+**Result:** CONSISTENT
+
+The vocabulary is explicitly distinguished in Contract #4.
+
+### TERM-003 — Workspace Membership ↔ System Role
+**Result:** CONSISTENT
+
+The concepts have distinct authorization scopes.
+
+### TERM-004 — Content Plan ↔ Project Context
+**Result:** CONSISTENT
+
+Content Plan is a planning-level grouping; ProjectContext is a context object.
+
+### TERM-005 — Engine ↔ Module ↔ Domain
+**Result:** CONSISTENT BY LAYER
+
+These terms operate at different architectural/product layers and must not be treated as interchangeable ownership boundaries.
+
+### TERM-006 — Capability ↔ Feature ↔ Entitlement
+**Result:** VERIFIED CONFLICT
+
+Core Contract #2 introduces Role configuration containing entitlement/feature configuration, conflicting with the established separation of Role → Permission and Membership → Entitlement.
+
+## Lifecycle / State Audit
+
+**Status: PARTIAL — dedicated sweep completed; cross-domain state closure remains open.**
+
+### Verified lifecycle gaps
+
+1. **LIFECYCLE-001 — Subscription lifecycle:** no single canonical Subscription state machine covering states, transitions, triggers, actors, dates, renewal/cancellation/expiry and terminal states.
+2. **LIFECYCLE-002 — Entitlement failure/reversal:** reservation/commit/release, failed consumption, retry, cancellation, reversal and refund-after-fulfillment are not consolidated.
+3. **LIFECYCLE-003 — Order → Payment → Fulfillment:** all combinations of failed attempts, retries, approval, expiry, refund, partial refund and fulfillment failure lack one authoritative matrix.
+4. **LIFECYCLE-004 — Content Slot → Blueprint → Asset → Editor → Export:** cross-domain ownership and legal transitions are not consolidated into one production lifecycle matrix.
+5. **LIFECYCLE-005 — Event retry/DLQ/replay:** operational state transitions are not fully canonicalized.
+6. **LIFECYCLE-006 — Storage PURGE_FAILED recovery:** retry/backoff/manual resolution/terminal handling are not fully specified.
+7. **LIFECYCLE-007 — Workspace / Content Plan / Content Slot authority:** transition authority and cross-boundary commands are not fully consolidated.
+
+## Additional Verified Findings From Later Passes
+
+Later verification passes established additional working findings including missing authoritative Subscription lifecycle contract; Security & Content Protection source; Asset Preparation/Editor/Export contract coverage; canonical capability/permission/configuration/state/event/API/entity-ownership registries; purchase eligibility; subscription allocation; entitlement failure/reversal; provider failure/consumption semantics; refund-after-fulfillment; order fulfillment failure/reconciliation; Own Content Intelligence/Analytics ownership; White-label activation boundary; privacy lifecycle; backup/DR acceptance criteria; observability; notification delivery/read-state separation; platform-wide time authority; raw research input persistence; and security-sensitive configuration approval workflow.
+
 ## Audit Rule
 
 All findings are recorded first. No corrective change is applied to `original/` until the full audit and Source-of-Truth reconciliation are complete.
@@ -220,39 +220,15 @@ All findings are recorded first. No corrective change is applied to `original/` 
 ## Phase Status
 
 ```text
-Phase 1 — Inventory & Authority          COMPLETE
+Phase 1 — Inventory & Authority          PARTIAL / RECONCILIATION OPEN
 Phase 2 — Deep Cross-Document Audit      IN PROGRESS
-Phase 3 — Full Completeness Audit        PENDING
+Phase 3 — Full Completeness Audit        FINDINGS COMPLETE / RESOLUTION OPEN
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
 Phase 6 — Final Verification             PENDING
 ```
 
-## Verification Reconciliation Update
-
-The original findings above are retained as the historical Phase 2 record. Later verification passes supersede only their classification where explicitly stated; they do not delete the original evidence trail.
-
-### Verified reclassifications
-- Manual Transfer / Support sequencing: **reclassified from Critical conflict to sequencing/contract clarification** because P0.07 already contains minimal Support Payment Verification while Full Support remains P1.
-- Provider boundary: **clarification gap**, not proven direct conflict.
-- Workspace vs Research Workspace: **relationship-definition gap**, not direct conflict.
-- Engine vs Domain: **terminology/governance clarification**, not direct conflict.
-- Architecture vs build dependency: **dependency taxonomy gap**, not direct conflict.
-- GAP-026 slice dependency mismatch: **not verified** in inspected roadmap/order.
-- GAP-038 raw concept identity: **merged into GAP-028**.
-
-### Additional verified findings from later passes
-The later verification passes also established the following additional working findings: missing authoritative Subscription entity/lifecycle contract; missing Security & Content Protection source; contract-coverage gaps for Asset Preparation/Editor/Export; canonical capability, permission, configuration, state, event, API and entity-ownership registries; purchase eligibility; subscription allocation schedule; entitlement failure/reversal; provider failure/consumption semantics; refund-after-fulfillment; order fulfillment failure/reconciliation; Own Content Intelligence/Analytics ownership; White-label activation boundary; data deletion/privacy lifecycle; backup/DR acceptance criteria; observability standard; notification delivery/read-state separation; platform-wide time/clock authority; raw research input persistence policy; and security-sensitive configuration approval workflow.
-
-The detailed verification records remain the authoritative evidence for those later classifications:
-
-```text
-verification-pass-01.md
-verification-pass-02-critical-high.md
-verification-pass-03-medium-low-references.md
-```
-
-## Current Audit Integrity
+## Audit Integrity
 
 ```text
 original/                  IMMUTABLE
