@@ -1,7 +1,11 @@
 # Phase 5 — Controlled Corrections
 
-Status: **IN PROGRESS**
+Status: **COMPLETE**
 
-The detailed correction plan is maintained in `phase-5-controlled-corrections-id.md`.
+Phase 5 correction work has been applied to the controlled working set outside `original/`.
 
-`original/` is immutable. Corrections apply only to working/final documents outside `original/` and must preserve the existing website concept and locked business decisions.
+The detailed plan is maintained in `phase-5-controlled-corrections-id.md`.
+
+Controlled working/final-document correction sets, authoritative contract addenda, canonical registries, cross-reference mapping, and implementation synchronization are present in this directory.
+
+`original/` is immutable. No website concept or locked business decision was changed.
