@@ -3,36 +3,33 @@
 ## Status
 **AUDIT IN PROGRESS — FINDINGS ONLY**
 
-`original/` is the immutable baseline. Findings are documented before any corrective edit.
+`original/` is the immutable baseline. No corrective edits are being applied to `original/` during this audit.
+
+This report records both:
 
 - **CONFLICT** = existing rules/statements contradict each other.
-- **GAP** = documentation is incomplete and would require implementation inference.
+- **GAP** = the documentation does not define enough information for implementation without inference.
+
+A finding is **not a final decision** until it is verified and reviewed with the project owner.
 
 ## Phase 1 — Inventory & Authority
 
-```text
-original/
-├── 00_GOVERNANCE
-├── 01_PRODUCT
-├── 02_ARCHITECTURE
-├── 03_CORE_CONTRACTS
-├── 04_IMPLEMENTATION
-├── 05_DESIGN
-└── 06_OPERATIONS
-```
+Repository baseline contains 21 Markdown documents under `original/`, grouped into Governance, Product, Architecture, Core Contracts #1–#13, Implementation, Design, and Operations.
 
-Working authority hierarchy:
+Working authority hierarchy from the Engineering Constitution:
 
 ```text
 Final Business Decision Register
         ↓
-PRD Final
+Final PRD
         ↓
-Core Contracts
+Core Contract
         ↓
 Core Architecture
         ↓
-Implementation
+Implementation Specification
+        ↓
+Code / Current Implementation
 ```
 
 ## Phase 2 — Deep Audit Findings
@@ -40,7 +37,7 @@ Implementation
 ### CONFLICT-001 — Manual Transfer payment state
 **Severity:** 🔴 Critical
 
-Earlier wording uses `Payment Approved`; later final wording explicitly defines `Admin Approve Ticket → Payment = Paid` and says no separate payment approval is required.
+Earlier wording uses `Payment Approved`; later wording explicitly defines `Admin Approve Ticket → Payment = Paid` and says no separate payment approval is required.
 
 **Required resolution:** canonical flow should be:
 
@@ -151,6 +148,59 @@ Architecture diagrams can be read as runtime dependency chains while implementat
 
 **Affected:** Architecture, Vertical Slice Order, Roadmap.
 
+### CONFLICT-011 — P0 Manual Transfer depends on Support, but full Support is scheduled in P1
+**Severity:** 🔴 Critical
+
+Implementation Roadmap places:
+
+```text
+P0.07 Manual Transfer
+→ Support Ticket Reference
+→ Proof Attachment
+→ Admin Approval
+```
+
+but places the main Support Center at `P1.06`.
+
+**Risk:** P0 cannot satisfy its own Manual Transfer acceptance gate without an explicitly defined minimal Support capability in P0.
+
+**Required resolution:** either introduce a clearly scoped `P0 Support Payment Verification` capability before/inside P0.07, or move Manual Transfer out of P0. Final choice must be recorded as an implementation decision.
+
+**Affected:** Final Vertical Slice Order, Implementation Roadmap, Payment, Support requirements.
+
+### CONFLICT-012 — Agency Mode is described as a Role while commercial access is governed by Product/Membership/Entitlement
+**Severity:** 🔴 Critical
+
+PRD UI/roadmap language describes Agency Mode as a `role` with separate pricing/mechanism, while the final business model explicitly separates Role (permission) from Membership/Product/Entitlement (commercial capability).
+
+**Risk:** AI Builder may implement purchase of Agency Mode as role assignment or infer entitlement from role.
+
+**Required resolution:** decide whether Agency Mode is a Product/Membership/Entitlement capability, a Role, or two explicitly separate concepts. The term `role` must not carry commercial meaning.
+
+**Affected:** PRD, Business Decision Register, Contracts #2/#4, Architecture.
+
+### CONFLICT-013 — Analyzer add-on entitlement can be included by Role
+**Severity:** 🔴 Critical
+
+PRD states Deep Source Intelligence and Multi-AI can be provided through Product/Package or included in membership/role via Admin, while the same business model separates Role from commercial entitlement.
+
+**Risk:** role configuration becomes an entitlement grant mechanism.
+
+**Required resolution:** role-specific defaults may be configuration/preferences; commercial inclusion must originate from Product/Membership/Entitlement.
+
+**Affected:** PRD Analyzer sections, Contracts #2/#3/#4.
+
+### CONFLICT-014 — Content Slot field ownership may be over-expanded by Planner
+**Severity:** 🟠 High
+
+Planner's Content Slot field list includes downstream references such as `script_id`, `asset_project_id`, and `editor_project_id`, while Contract #9/Architecture treat Content Slot as the stable context anchor and downstream domains as separate owners.
+
+**Risk:** Content Slot becomes a God Entity that owns downstream production state.
+
+**Required resolution:** distinguish stable cross-domain references from owned state. Downstream IDs should be references/links, not imply ownership by Content Context/Planner.
+
+**Affected:** Contracts #9/#11, Architecture, Blueprint/Asset/Editor implementation.
+
 ## Completeness Gaps
 
 ### GAP-001 — Canonical Capability Registry
@@ -188,10 +238,10 @@ Need operation, owner, authorization, request/response schema, errors, idempoten
 
 Ownership is currently inferred from individual contracts. Need one authoritative matrix covering all entities.
 
-### GAP-008 — Vertical Slice Specification Coverage
-**Severity:** 🟡 Medium
+### GAP-008 — Completed Vertical Slice Specifications
+**Severity:** 🟠 High
 
-Need completed per-slice specifications, not only the framework/template: scope, inputs, outputs, entities, commands, queries, events, dependencies, acceptance, tests and operations.
+The implementation document is a framework/template, while the roadmap expects concrete slice specifications. The repository currently does not contain the individual per-slice specification set described by the framework.
 
 ### GAP-009 — Research Historical Observation Priority Mapping
 **Severity:** 🟡 Medium
@@ -213,16 +263,153 @@ Need explicit command-level contract for Content Slot operations, including owne
 
 Need explicit outcomes for success, failure, retry, timeout, provider failover, cancellation and reversal.
 
-## Audit Rule
+### GAP-013 — Subscription Entity and Lifecycle Owner
+**Severity:** 🔴 Critical
 
-All findings are recorded first. No corrective change is applied to `original/` until the full audit and Source-of-Truth reconciliation are complete.
+Business rules repeatedly depend on subscription state (`Active`, `Cancelled`, `Expired`, `Reactivated`, etc.), but the current Product/Entitlement and Payment contracts do not define a canonical Subscription entity/owner or complete subscription state machine.
+
+**Risk:** multiple domains may independently infer subscription status.
+
+**Required addition:** define authoritative Subscription ownership, lifecycle, renewal/cancellation/reactivation behavior, billing-cycle relation, and events.
+
+**Affected:** Business Decision Register, Contract #4, Contract #5, Architecture, Implementation.
+
+### GAP-014 — Missing dedicated core contracts for required domains
+**Severity:** 🔴 Critical
+
+The repository has Core Contracts #1–#13, but implementation/architecture require additional domains without equivalent dedicated contracts, including at least:
+
+```text
+Support
+Referral / Milestones
+Analytics
+Asset Preparation
+Editor
+Export
+Tenant / White-label
+Security / Content Protection
+```
+
+Some behavior exists in PRD/Architecture/Implementation, but no single domain contract establishes owner, entities, state, API, events, invariants and DoD for each.
+
+**Required addition:** create dedicated contracts or explicitly declare and fully specify ownership in existing contracts.
+
+### GAP-015 — Security / Content Protection source document missing
+**Severity:** 🔴 Critical
+
+PRD explicitly references a separate `Security & Content Protection` document for technical details, but it is not present in the current `original/` inventory.
+
+**Risk:** screenshot/DevTools/Auto-Blur/content-protection implementation lacks a complete technical source of truth.
+
+**Required addition:** create the missing specification or formally relocate the requirements into an authoritative existing document.
+
+### GAP-016 — Market / Localization contract depth
+**Severity:** 🟡 Medium
+
+Market, language and currency are used by Identity, Configuration, Product/Pricing and UI, but there is no dedicated contract defining canonical Market entity, locale registry, fallback resolution, currency registry and interaction rules.
+
+### GAP-017 — Subscription/package allocation schedule
+**Severity:** 🟠 High
+
+Contract #4 says membership allocations refresh according to membership cycle/policy, including annual subscriptions with monthly allocations, but does not fully define allocation calendar, proration, renewal boundary, unused-balance behavior or timezone rules.
+
+### GAP-018 — Product purchase eligibility decision matrix
+**Severity:** 🟠 High
+
+Purchasability combines Product Active, Price Active, Market Allowed, Eligibility Allowed and Payment Method Available, while subscription-inactive rules add constraints. A canonical decision matrix is needed.
+
+### GAP-019 — Refund ↔ Entitlement reversal semantics
+**Severity:** 🟠 High
+
+Payment supplies refund trigger and Entitlement supplies grant/consumption state, but exact reversal policy for granted, partially consumed, refunded and failed entitlements is not fully centralized.
+
+### GAP-020 — Provider failure ↔ entitlement consumption transaction model
+**Severity:** 🟠 High
+
+Provider execution and entitlement consumption are separate transitions. Idempotency is required, but reservation/commit/release semantics for timeout, ambiguous success, partial completion and failover are not fully specified.
+
+### GAP-021 — Event catalog completeness and aggregate keys
+**Severity:** 🟡 Medium
+
+Events are defined in multiple contracts, but no single catalog establishes canonical aggregate/partition keys, producer ownership, version compatibility and consumer guarantees for all critical events.
+
+### GAP-022 — API error/code registry
+**Severity:** 🟡 Medium
+
+Contracts define local error examples, but there is no canonical error taxonomy/code registry shared across API, UI, workers and support diagnostics.
+
+### GAP-023 — Data deletion / privacy lifecycle
+**Severity:** 🟠 High
+
+Storage purge rules exist, but a complete user/account data lifecycle is not clearly defined for account deletion, anonymization, dependent records, audit retention, financial records, research data and provider traces.
+
+### GAP-024 — Backup/restore and disaster-recovery acceptance criteria
+**Severity:** 🟡 Medium
+
+Operations requires backup, recovery and restore testing, but concrete RPO/RTO targets, restore verification procedure and acceptance criteria are not clearly defined.
+
+### GAP-025 — Observability standard across domains
+**Severity:** 🟡 Medium
+
+Logging/correlation requirements exist, but no canonical observability matrix defines mandatory metrics, traces, alerts, dashboards and ownership for each critical domain/worker.
+
+### GAP-026 — Per-slice dependency matrix reconciliation
+**Severity:** 🟠 High
+
+Vertical Slice Order and Implementation Roadmap use related but not identical slice groupings/IDs. A canonical mapping is needed so `Slice 07`, `P0.07`, etc. cannot refer to different scopes.
+
+### GAP-027 — Asset / Editor / Export state ownership and handoff
+**Severity:** 🔴 Critical
+
+Implementation requires Asset Preparation → Editor → Export, but these domains lack dedicated core contracts defining authoritative entities, state machines, API/application boundaries, events, idempotency and failure recovery.
+
+### GAP-028 — Research Source vs Analyzer raw concept/media persistence rule
+**Severity:** 🟡 Medium
+
+Analyzer accepts raw concepts, media and documents while Research defines canonical Source identity. Need an explicit rule for when each input becomes a persistent Research Source versus remaining Analyzer-only input.
+
+### GAP-029 — Own Content Intelligence / Analytics ownership boundary
+**Severity:** 🟠 High
+
+PRD expects Own Winners, historical baseline and A/B learnings to feed Research, while Architecture says Analytics owns performance ingestion/calculation. Canonical ownership and handoff of derived signals need explicit definition.
+
+### GAP-030 — White-label foundation contract and activation boundary
+**Severity:** 🟠 High
+
+White-label is core-ready but not fully built. Tenant-aware authorization, pricing, product synchronization, domain mapping and settlement behavior need one explicit contract/boundary.
+
+### GAP-031 — Security-sensitive configuration approval workflow
+**Severity:** 🟡 Medium
+
+Configuration identifies High/Critical settings and suggests confirmation/step-up/approval, but does not define canonical approval state machine, actor separation or enforcement mechanism.
+
+### GAP-032 — Timezone/clock authority across scheduling, billing and retention
+**Severity:** 🟡 Medium
+
+Planner defines plan timezone; Storage uses retention timestamps; subscription/billing uses cycle dates. A platform-wide rule for authoritative timestamps, user timezone, market timezone, billing timezone and DST handling is not fully centralized.
+
+## Audit Method Note
+
+These findings are a working inventory. Before any correction, each finding must be verified against all affected source documents. Findings may be reclassified, merged, split, downgraded or rejected during review.
+
+## Rules Going Forward
+
+1. Continue auditing all source files before corrective changes.
+2. Every finding must be classified as `CONFLICT` or `GAP`.
+3. Record severity and affected documents.
+4. Add evidence/reference before marking a finding `VERIFIED`.
+5. Do not modify `original/`.
+6. Do not silently resolve unresolved business decisions.
+7. After the full audit, reconcile Source of Truth.
+8. Only then execute the Change Plan.
+9. After corrections, run a second full cross-document audit.
 
 ## Phase Status
 
 ```text
 Phase 1 — Inventory & Authority          COMPLETE
 Phase 2 — Deep Cross-Document Audit      IN PROGRESS
-Phase 3 — Full Completeness Audit        PENDING
+Phase 3 — Full Completeness Audit        IN PROGRESS
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
 Phase 6 — Final Verification             PENDING
