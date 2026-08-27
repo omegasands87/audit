@@ -238,6 +238,34 @@ The Cross-Contract Audit reviewed Core Contracts #1–#13 as a connected system.
 
 **Deduplication rule:** CC IDs are trace IDs, not automatically new project findings. Existing canonical findings remain canonical where a CC result reinforces them.
 
+## UI / Design Consistency Audit
+
+**Status: COMPLETE — dedicated UI/Design sweep performed; findings recorded; reconciliation pending.**
+
+The UI/Design audit reviewed product/page intent, auth/session state, entitlement and permission visibility, workspace/planner/content-slot boundaries, Research/Analyzer, Analyzer→Blueprint, production workflow, asset/editor/export coverage, common UI states, responsive behavior, destructive actions, terminology, accessibility, design-to-implementation traceability, and notification/read-state behavior.
+
+### UI results
+
+| ID | Area | Result | Disposition |
+|---|---|---|---|
+| UI-001 | Auth / session UI state | CONSISTENT | No new finding |
+| UI-002 | Membership / entitlement visibility | GAP | Canonical entitlement-to-UI mapping required |
+| UI-003 | Role / permission visibility | GAP | Permission-driven UI matrix required |
+| UI-004 | Workspace / Planner / Content Slot | GAP | Reinforces CC-010 / GAP-011 |
+| UI-005 | Research / Analyzer | BOUNDARY RISK | Reinforces CONFLICT-004 / GAP-028 |
+| UI-006 | Analyzer → Blueprint workflow | GAP | Output-to-action contract required |
+| UI-007 | Content Slot → production workflow | GAP | Reinforces LIFECYCLE-004 |
+| UI-008 | Asset / Editor / Export | GAP | Reinforces contract-coverage findings |
+| UI-009 | Loading / empty / error / retry states | GAP | Product-wide UI state matrix required |
+| UI-010 | Responsive behavior | GAP | Screen-specific breakpoint/behavior acceptance criteria required |
+| UI-011 | Destructive actions / confirmation | GAP | Cross-product interaction rules required |
+| UI-012 | Terminology consistency | GAP | Reinforces TERM-001 / TERM-006 |
+| UI-013 | Accessibility | GAP | Product-wide accessibility acceptance source required |
+| UI-014 | Design → implementation traceability | GAP | Screen/component → contract/API/domain traceability required |
+| UI-015 | Notification/read state | GAP | Delivery vs read-state mapping required |
+
+**UI deduplication rule:** UI IDs are audit trace IDs. They are not automatically new project findings when they reinforce existing findings from Terminology, Lifecycle, Cross-Contract, or Completeness audits.
+
 ## Additional Verified Findings From Later Passes
 
 Later verification passes established additional working findings including missing authoritative Subscription lifecycle contract; Security & Content Protection source; Asset Preparation/Editor/Export contract coverage; canonical capability/permission/configuration/state/event/API/entity-ownership registries; purchase eligibility; subscription allocation; entitlement failure/reversal; provider failure/consumption semantics; refund-after-fulfillment; order fulfillment failure/reconciliation; Own Content Intelligence/Analytics ownership; White-label activation boundary; privacy lifecycle; backup/DR acceptance criteria; observability; notification delivery/read-state separation; platform-wide time authority; raw research input persistence; and security-sensitive configuration approval workflow.
@@ -250,7 +278,7 @@ All findings are recorded first. No corrective change is applied to `original/` 
 
 ```text
 Phase 1 — Inventory & Authority          PARTIAL / RECONCILIATION OPEN
-Phase 2 — Deep Cross-Document Audit      IN PROGRESS / Cross-Contract COMPLETE
+Phase 2 — Deep Cross-Document Audit      IN PROGRESS / UI complete / Operations pending
 Phase 3 — Full Completeness Audit        FINDINGS COMPLETE / RESOLUTION OPEN
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
