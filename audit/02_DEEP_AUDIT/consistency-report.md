@@ -209,6 +209,35 @@ Core Contract #2 introduces Role configuration containing entitlement/feature co
 6. **LIFECYCLE-006 — Storage PURGE_FAILED recovery:** retry/backoff/manual resolution/terminal handling are not fully specified.
 7. **LIFECYCLE-007 — Workspace / Content Plan / Content Slot authority:** transition authority and cross-boundary commands are not fully consolidated.
 
+## Cross-Contract Audit
+
+**Status: COMPLETE — dedicated cross-contract sweep performed; findings recorded; reconciliation pending.**
+
+The Cross-Contract Audit reviewed Core Contracts #1–#13 as a connected system. The detailed evidence and deduplicated cross-contract trace IDs are recorded in `cross-contract-audit.md`.
+
+### Cross-contract results
+
+| ID | Relation | Result | Disposition |
+|---|---|---|---|
+| CC-001 | Identity ↔ Role/Membership | CONSISTENT | No new finding |
+| CC-002 | Role ↔ Permission ↔ Entitlement | CONFLICT | Reinforces TERM-006 / CONFLICT-002 |
+| CC-003 | Configuration ↔ Authorization/Business Rules | GAP | Reinforces GAP-010 / CONFLICT-006 |
+| CC-004 | Product ↔ Order ↔ Payment | CONSISTENT | No new finding |
+| CC-005 | Payment ↔ Entitlement Fulfillment | GAP | Reinforces LIFECYCLE-003 |
+| CC-006 | Payment ↔ Provider | CLARIFICATION GAP | Reinforces provider-boundary clarification |
+| CC-007 | Refund ↔ Entitlement ↔ Referral | GAP | Reinforces refund/reversal findings |
+| CC-008 | Provider ↔ Capability ↔ Entitlement | VOCABULARY GAP | Reinforces capability vocabulary finding |
+| CC-009 | Storage ↔ Events/Audit | GAP | Cross-domain event/recovery gap |
+| CC-010 | Workspace ↔ Planner ↔ Content Slot | GAP | Reinforces LIFECYCLE-007 / GAP-011 |
+| CC-011 | Research ↔ Analyzer | BOUNDARY RISK | Reinforces CONFLICT-004 / GAP-028 |
+| CC-012 | Analyzer ↔ Planner/Blueprint | GAP | Cross-domain output/command boundary needs explicit contract |
+| CC-013 | Content Slot ↔ Production pipeline | GAP | Reinforces LIFECYCLE-004 / asset-editor-export coverage |
+| CC-014 | Events ↔ Domain state | GAP | Reinforces event/state catalog gaps |
+| CC-015 | Support ↔ Manual Transfer | SEQUENCING GAP | Reinforces reclassified manual-transfer finding |
+| CC-016 | Subscription ↔ Product/Entitlement | GAP | Reinforces TERM-001 / subscription lifecycle gap |
+
+**Deduplication rule:** CC IDs are trace IDs, not automatically new project findings. Existing canonical findings remain canonical where a CC result reinforces them.
+
 ## Additional Verified Findings From Later Passes
 
 Later verification passes established additional working findings including missing authoritative Subscription lifecycle contract; Security & Content Protection source; Asset Preparation/Editor/Export contract coverage; canonical capability/permission/configuration/state/event/API/entity-ownership registries; purchase eligibility; subscription allocation; entitlement failure/reversal; provider failure/consumption semantics; refund-after-fulfillment; order fulfillment failure/reconciliation; Own Content Intelligence/Analytics ownership; White-label activation boundary; privacy lifecycle; backup/DR acceptance criteria; observability; notification delivery/read-state separation; platform-wide time authority; raw research input persistence; and security-sensitive configuration approval workflow.
@@ -221,7 +250,7 @@ All findings are recorded first. No corrective change is applied to `original/` 
 
 ```text
 Phase 1 — Inventory & Authority          PARTIAL / RECONCILIATION OPEN
-Phase 2 — Deep Cross-Document Audit      IN PROGRESS
+Phase 2 — Deep Cross-Document Audit      IN PROGRESS / Cross-Contract COMPLETE
 Phase 3 — Full Completeness Audit        FINDINGS COMPLETE / RESOLUTION OPEN
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
