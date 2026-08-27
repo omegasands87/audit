@@ -35,7 +35,7 @@
 - [x] COMPLETE — Terminology audit — exhaustive sweep completed; remediation remains pending
 - [x] COMPLETE — Lifecycle/state audit — dedicated sweep completed; lifecycle gaps and cross-domain closure requirements recorded
 - [x] COMPLETE — Cross-contract audit — dedicated cross-contract sweep completed; findings recorded; reconciliation remains pending
-- [~] PARTIAL — UI/Design consistency audit: relevant UI/design references were checked; full screen-to-contract audit is still required
+- [x] COMPLETE — UI/Design consistency audit — dedicated sweep completed; findings recorded; reconciliation remains pending
 - [~] PARTIAL — Operations consistency audit: operational references were checked; full operations-to-architecture audit is still required
 
 ### Cross-Contract Audit Result
@@ -53,8 +53,27 @@
 - [x] COMPLETE — Subscription / Product / Entitlement relationship reviewed
 - [x] COMPLETE — Cross-contract findings deduplicated against existing findings
 
-### Why the remaining two items are still open
-They were intentionally **not marked COMPLETE** because dedicated exhaustive audits of UI/Design and Operations dimensions are still required. `[~] PARTIAL` means **some work has been done, but the dedicated audit is not complete**.
+### UI / Design Audit Result
+- [x] COMPLETE — UI/design references reviewed against product/page intent
+- [x] COMPLETE — Auth/session UI state reviewed
+- [x] COMPLETE — Membership/entitlement visibility reviewed
+- [x] COMPLETE — Role/permission visibility reviewed
+- [x] COMPLETE — Workspace/Planner/Content Slot UI boundary reviewed
+- [x] COMPLETE — Research/Analyzer UI boundary reviewed
+- [x] COMPLETE — Analyzer → Blueprint workflow reviewed
+- [x] COMPLETE — Content Slot → production UI flow reviewed
+- [x] COMPLETE — Asset/Editor/Export UI coverage reviewed
+- [x] COMPLETE — Loading/empty/error/retry states reviewed
+- [x] COMPLETE — Responsive/mobile behavior reviewed
+- [x] COMPLETE — Destructive action/confirmation behavior reviewed
+- [x] COMPLETE — Terminology consistency reviewed
+- [x] COMPLETE — Accessibility coverage reviewed
+- [x] COMPLETE — Design → implementation traceability reviewed
+- [x] COMPLETE — Notification/read-state behavior reviewed
+- [x] COMPLETE — UI findings deduplicated/reinforced against existing findings
+
+### Why the remaining item is still open
+Operations remains `[~] PARTIAL` because a dedicated exhaustive operations-to-architecture audit is still required. `[~] PARTIAL` means **some work has been done, but the dedicated audit is not complete**.
 
 ## Terminology Audit Results
 - [x] COMPLETE — TERM-001 Membership ↔ Subscription — ambiguity/gap verified; canonicalization pending
@@ -205,6 +224,7 @@ audit/
 │   ├── terminology-audit-preliminary.md
 │   ├── lifecycle-state-audit.md
 │   ├── cross-contract-audit.md
+│   ├── ui-design-audit.md
 │   ├── verification-pass-01.md
 │   ├── verification-pass-02-critical-high.md
 │   └── verification-pass-03-medium-low-references.md
@@ -219,7 +239,7 @@ audit/
 
 ```text
 Phase 1 — Inventory & Authority          COMPLETE except reconciliation
-Phase 2 — Deep Cross-Document Audit      IN PROGRESS / Cross-Contract COMPLETE
+Phase 2 — Deep Cross-Document Audit      IN PROGRESS / UI complete / Operations pending
 Phase 3 — Full Completeness Audit        FINDINGS COLLECTED / resolution pending
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
@@ -231,6 +251,7 @@ Verification Pass 03: COMPLETE
 Terminology Audit: COMPLETE (remediation pending)
 Lifecycle/State Audit: COMPLETE (cross-domain remediation pending)
 Cross-Contract Audit: COMPLETE (reconciliation pending)
+UI/Design Audit: COMPLETE (reconciliation pending)
 Working findings: NOT FINAL
 original/: IMMUTABLE
 ```
