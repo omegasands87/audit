@@ -14,6 +14,7 @@
 - Findings are not final until verified and reviewed by project owner.
 - Do not silently resolve business decisions.
 - Maintain this checklist as the single audit progress tracker.
+- **Checklist items may be added, but existing checklist items must never be removed or silently replaced.**
 
 ## Phase 1 — Inventory & Authority
 - [x] COMPLETE — Inventory all files in `original/`
@@ -32,13 +33,13 @@
 - [x] COMPLETE — Verification Pass 02 — Critical & High
 - [x] COMPLETE — Verification Pass 03 — Medium/Low + referenced-document verification
 - [x] COMPLETE — Terminology audit — exhaustive sweep completed; remediation remains pending
-- [~] PARTIAL — Lifecycle/state audit: key lifecycle gaps were identified; a dedicated exhaustive state-machine sweep is still required
+- [x] COMPLETE — Lifecycle/state audit — dedicated sweep completed; lifecycle gaps and cross-domain closure requirements recorded
 - [~] PARTIAL — Cross-contract audit: major cross-domain risks were checked; the complete contract matrix is not yet closed
 - [~] PARTIAL — UI/Design consistency audit: relevant UI/design references were checked; full screen-to-contract audit is still required
 - [~] PARTIAL — Operations consistency audit: operational references were checked; full operations-to-architecture audit is still required
 
-### Why the remaining four items are still open
-They were intentionally **not marked COMPLETE** in Pass 01–03. Earlier passes were finding/verification passes, not dedicated exhaustive audits of those dimensions. `[~] PARTIAL` means **some work has been done, but the dedicated audit is not complete**.
+### Why the remaining three items are still open
+They were intentionally **not marked COMPLETE** because dedicated exhaustive audits of those dimensions are still required. `[~] PARTIAL` means **some work has been done, but the dedicated audit is not complete**.
 
 ## Terminology Audit Results
 - [x] COMPLETE — TERM-001 Membership ↔ Subscription — ambiguity/gap verified; canonicalization pending
@@ -47,6 +48,15 @@ They were intentionally **not marked COMPLETE** in Pass 01–03. Earlier passes 
 - [x] COMPLETE — TERM-004 Content Plan ↔ Project Context — consistent
 - [x] COMPLETE — TERM-005 Engine ↔ Module ↔ Domain — consistent by layer
 - [x] COMPLETE — TERM-006 Capability ↔ Feature ↔ Entitlement — conflict verified; remediation pending
+
+## Lifecycle / State Audit Results
+- [x] COMPLETE — LIFECYCLE-001 Subscription lifecycle — canonical state machine gap verified
+- [x] COMPLETE — LIFECYCLE-002 Entitlement failure/reversal — transition matrix gap verified
+- [x] COMPLETE — LIFECYCLE-003 Order → Payment → Fulfillment — cross-domain transition matrix gap verified
+- [x] COMPLETE — LIFECYCLE-004 Content Slot → Blueprint → Asset → Editor → Export — production transition matrix gap verified
+- [x] COMPLETE — LIFECYCLE-005 Event retry → DLQ → replay → resolution — operational transition gap verified
+- [x] COMPLETE — LIFECYCLE-006 Storage PURGE_FAILED recovery — recovery policy gap verified
+- [x] COMPLETE — LIFECYCLE-007 Workspace / Content Plan / Content Slot authority — transition authority gap verified
 
 ## Critical/High Verification Results
 - [x] COMPLETE — Role ↔ Membership/Entitlement verified
@@ -136,6 +146,13 @@ They were intentionally **not marked COMPLETE** in Pass 01–03. Earlier passes 
 - [!] BLOCKED — VERIFIED GAP — Refund-after-fulfillment workflow (decision pending)
 - [!] BLOCKED — VERIFIED GAP — Notification delivery vs read-state separation (decision pending)
 - [!] BLOCKED — VERIFIED GAP — Provider/Product/Entitlement capability vocabulary (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Subscription lifecycle state machine (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Entitlement reservation/commit/release/reversal state model (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Order/Payment/Fulfillment cross-domain transition matrix (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Production pipeline cross-domain state matrix (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Event retry/DLQ/replay resolution matrix (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Storage purge failure recovery policy (decision pending)
+- [!] BLOCKED — VERIFIED GAP — Workspace/Content Plan/Content Slot transition authority matrix (decision pending)
 
 ## Phase 4 — Source-of-Truth Reconciliation
 - [ ] NOT STARTED — Create/update `03_DECISIONS/source-of-truth.md` with verified decisions only
@@ -170,6 +187,8 @@ audit/
 │   └── audit-checklist.md
 ├── 02_DEEP_AUDIT/
 │   ├── consistency-report.md
+│   ├── terminology-audit-preliminary.md
+│   ├── lifecycle-state-audit.md
 │   ├── verification-pass-01.md
 │   ├── verification-pass-02-critical-high.md
 │   └── verification-pass-03-medium-low-references.md
@@ -184,7 +203,7 @@ audit/
 
 ```text
 Phase 1 — Inventory & Authority          COMPLETE except reconciliation
-Phase 2 — Deep Cross-Document Audit      PARTIAL / dedicated dimension audits remain
+Phase 2 — Deep Cross-Document Audit      PARTIAL / 3 dedicated dimension audits remain
 Phase 3 — Full Completeness Audit        FINDINGS COLLECTED / resolution pending
 Phase 4 — Source-of-Truth Reconciliation PENDING
 Phase 5 — Controlled Corrections         PENDING
@@ -194,6 +213,7 @@ Verification Pass 01: COMPLETE
 Verification Pass 02: COMPLETE
 Verification Pass 03: COMPLETE
 Terminology Audit: COMPLETE (remediation pending)
+Lifecycle/State Audit: COMPLETE (cross-domain remediation pending)
 Working findings: NOT FINAL
 original/: IMMUTABLE
 ```
