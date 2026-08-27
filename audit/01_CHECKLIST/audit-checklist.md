@@ -19,6 +19,7 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [x] Identify Source-of-Truth declarations
 - [x] Establish working authority hierarchy
 - [ ] Reconcile all authority conflicts
+- [ ] Verify all referenced source documents exist
 
 ## 2. Governance & Source of Truth
 - [x] Check hierarchy of authority
@@ -74,6 +75,7 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [ ] Subscription ↔ Product ↔ Payment ↔ Entitlement
 - [ ] Analytics ↔ Research ↔ Planner
 - [ ] Asset ↔ Editor ↔ Export ↔ Storage
+- [ ] Refund ↔ Entitlement ↔ Referral
 
 ## 6. Architecture
 - [x] Domain ownership vs Core Contracts — preliminary
@@ -103,7 +105,9 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [ ] Slice IDs/phases/dependencies are synchronized across implementation documents
 - [x] Framework for per-slice specification exists
 - [ ] Concrete per-slice specifications exist
+- [x] P0 Manual Transfer ↔ Support dependency conflict identified
 - [ ] P0 Manual Transfer ↔ Support dependency is resolved
+- [ ] Order fulfillment failure/recovery is specified
 
 ## 8. Design / UI
 - [ ] UI terminology matches PRD
@@ -112,8 +116,10 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [ ] Research → Planner → Analyzer → Blueprint flow matches contracts
 - [ ] UI does not imply unsupported capability
 - [ ] UI states/errors match backend state machines
+- [x] Content protection source document existence issue identified
 - [ ] Content protection UI/technical requirements have an authoritative source
-- [ ] Agency Mode UI/commercial semantics are reconciled
+- [x] Agency Mode UI/commercial semantics conflict identified
+- [ ] Agency Mode semantics are reconciled
 
 ## 9. Operations
 - [ ] Deployment matches architecture
@@ -125,6 +131,7 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [ ] Runbooks match implementation
 - [ ] RPO/RTO and disaster recovery acceptance criteria defined
 - [ ] Production data deletion/privacy lifecycle defined
+- [ ] Environment/security controls cross-checked with Architecture
 
 ## 10. Completeness Gaps
 - [ ] Canonical Capability Registry
@@ -164,7 +171,13 @@ Ensure all documents in `original/` are consistent, complete, have clear ownersh
 - [ ] White-label activation boundary
 - [ ] Security-sensitive configuration approval workflow
 - [ ] Platform-wide time/clock authority
-- [ ] Reference-document existence audit
+- [ ] Entitlement remaining_amount source-of-truth rule
+- [ ] Order fulfillment failure/recovery state machine
+- [ ] Refund-after-fulfillment workflow
+- [ ] Notification delivery vs read-state separation
+- [ ] Provider/Product/Entitlement capability vocabulary
+- [ ] Raw Concept identity semantics
+- [ ] PRD/Architecture referenced-document existence audit
 
 ## 11. Findings Management
 - [x] Findings recorded before correction
@@ -210,11 +223,11 @@ Phase 5 — Controlled Corrections         PENDING
 Phase 6 — Final Verification             PENDING
 ```
 
-## Current Finding Count
+## Current Working Finding Count
 
 ```text
-CONFLICT — 14 recorded
-GAP      — 32 recorded
+CONFLICT — 16 recorded
+GAP      — 38 recorded
 
 Status: working findings, NOT FINAL
 ```
