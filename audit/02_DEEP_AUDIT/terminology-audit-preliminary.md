@@ -1,65 +1,113 @@
-# Terminology Audit — Preliminary Findings
+# Terminology Audit — Full Verification Pass
 
-**Status:** PRELIMINARY — NEEDS FURTHER VERIFICATION
+## Status
 
-This document records terminology findings identified during the initial dedicated terminology sweep. These are not final conflicts and do not authorize any source-document correction.
+**VERIFIED — TERM-001 through TERM-006**
 
-`original/` remains immutable.
+This document records the full terminology sweep against the available source-of-truth documents in the repository.
 
-## Preliminary Findings
+## Final Verification Matrix
 
-### TERM-001 — Membership vs Subscription
+| ID | Term | Result | Finding |
+|---|---|---|---|
+| TERM-001 | Membership ↔ Subscription | AMBIGUITY / GAP | Relationship/entity vocabulary is not sufficiently locked; no direct business-rule contradiction verified. |
+| TERM-002 | Product / Membership Product / Package / Add-on | CONSISTENT | Contract #4 explicitly distinguishes Membership, Feature Package, Add-on, and Bundle. |
+| TERM-003 | Workspace Membership ↔ System Role | CONSISTENT | Workspace Membership is explicitly distinct from global/System Role. |
+| TERM-004 | Content Plan ↔ Project Context | CONSISTENT | Content Plan is planning-level grouping; ProjectContext is a standardized context object. |
+| TERM-005 | Engine ↔ Module ↔ Domain | CONSISTENT BY LAYER | Architecture distinguishes product/engine grouping from logical modules, bounded contexts, services, and workers. |
+| TERM-006 | Capability ↔ Feature ↔ Entitlement | VERIFIED CONFLICT | Core Contract #2 mixes Role configuration with Entitlement / Feature Configuration, conflicting with the invariant Role → Permission and Membership → Entitlement. |
 
-**Status:** Needs further verification
+## Detailed Findings
 
-Both terms appear in commercial-access and lifecycle contexts. The audit must determine whether Subscription is the lifecycle entity for a Membership/Product purchase, or whether the two are intentionally separate entities.
+### TERM-001 — Membership ↔ Subscription
 
-**Required verification:** canonical definitions, ownership, lifecycle, billing-cycle relationship, and references across PRD, Business Decision Register, Product/Entitlement and Payment contracts.
+**Result: AMBIGUITY / GAP**
+
+The Business Decision Register uses subscription/membership lifecycle language (`active`, `inactive`, `expired`, cancellation), while Core Contract #4 defines Membership as a product with subscription semantics. The concepts are related, but the exact canonical entity relationship should be explicitly locked before implementation.
+
+**Required clarification:** distinguish the commercial Product (`Membership Product`) from the user's subscription/membership state/record.
 
 ### TERM-002 — Product / Membership Product / Package / Add-on
 
-**Status:** Needs further verification
+**Result: CONSISTENT**
 
-The documents distinguish Product, Membership/Product benefits, Package and Add-on in different contexts. The vocabulary needs an explicit canonical hierarchy so implementation does not treat these terms as interchangeable.
+Core Contract #4 explicitly defines the product types:
 
-**Required verification:** entity definitions, commercial role, purchasability, entitlement mapping and UI terminology.
+```text
+Membership
+Feature Package
+Add-on
+Bundle
+```
 
-### TERM-003 — Workspace Membership vs System Role
+Membership is a product with subscription semantics; Feature Packages are separately purchased packages; Add-ons provide additional capability/usage. No terminology conflict remains.
 
-**Status:** Needs further verification
+### TERM-003 — Workspace Membership ↔ System Role
 
-Workspace membership and system/global role represent different authorization scopes, but the terminology could be interpreted as one generic membership/role concept.
+**Result: CONSISTENT**
 
-**Required verification:** scope, actor identity, permission assignment, workspace membership relation and global-role relation.
+Core Contract #9 explicitly keeps Workspace Membership separate from global System Role. Workspace membership controls participation in a workspace; System Role participates in global authorization. These must not be merged.
 
-### TERM-004 — Content Plan vs Project Context
+### TERM-004 — Content Plan ↔ Project Context
 
-**Status:** Needs further verification
+**Result: CONSISTENT**
 
-Content Plan is used as a business/planning concept while Project Context is a technical/context object. The audit must ensure they are not treated as aliases or competing entities.
+Content Plan is the planning-level grouping containing Content Slots. `ProjectContext` is a standardized context object used by services to resolve user/workspace/plan/slot/tenant context. They are different concepts and can coexist without duplicate ownership.
 
-**Required verification:** definitions, ownership, lifecycle, UI naming and cross-domain references.
+### TERM-005 — Engine ↔ Module ↔ Domain
 
-### TERM-005 — Engine vs Module vs Domain
+**Result: CONSISTENT BY LAYER**
 
-**Status:** Needs further verification
+The architecture uses Engines as higher-level product/functional groupings while separately defining domains, modules, bounded contexts, application services, workers, and adapters. This is acceptable provided implementation does not treat these terms as interchangeable ownership boundaries.
 
-The PRD uses Engine and Module as product-organization concepts, while architecture uses Domain/Bounded Context as ownership boundaries. These must be explicitly distinguished so implementation does not infer that the three terms represent the same boundary.
+### TERM-006 — Capability ↔ Feature ↔ Entitlement
 
-**Required verification:** canonical architectural vocabulary and usage across PRD, Architecture, Contracts and Vertical Slice documents.
+**Result: VERIFIED CONFLICT**
 
-### TERM-006 — Capability vs Feature vs Entitlement
+The architecture and Contract #4 establish:
 
-**Status:** Needs further verification
+```text
+Capability
+→ domain-defined ability
 
-Capability and Entitlement are already distinguished in core commercial/authorization concepts, but the PRD also uses Feature/Feature Access/Feature Package language. A canonical vocabulary hierarchy is needed to prevent `Feature` from becoming an ambiguous synonym for either capability or commercial entitlement.
+Product
+→ commercial definition
 
-**Required verification:** definitions, authorization semantics, commercial semantics and implementation references.
+Entitlement
+→ user's granted right/capacity
 
-## Rules
+Feature
+→ user-facing/system capability concept
+```
 
-- Do not classify these preliminary items as final CONFLICT findings yet.
-- Do not change `original/` based on these findings.
-- Verify each term across all relevant source documents before reconciliation.
-- Record evidence and exact source locations when a finding is promoted or reclassified.
-- Any final terminology decision belongs in the Source-of-Truth Reconciliation phase after project-owner review.
+However, Core Contract #2 Section 30 introduces:
+
+```text
+Role
+├── Permissions
+└── Default Entitlement / Feature Configuration
+```
+
+and explicitly labels Analyzer capabilities such as Deep Source Intelligence, Media Intelligence, and Cross-Source Analysis as entitlement/configuration properties.
+
+This creates an ownership/terminology collision with the established invariant:
+
+```text
+Membership
+→ Entitlement / Product Benefit
+
+Role
+→ Permission / Authorization
+```
+
+**Required correction:** Role may have configurable defaults/preferences that influence UX or authorization behavior, but it must not become an owner/source of entitlement. Entitlement remains owned by the Entitlement domain and is derived from valid commercial/admin grants according to the finalized business rules.
+
+## Source-of-Truth Rule
+
+The Engineering Constitution requires one authoritative owner per persistent business entity and prohibits duplicate sources of truth. It also explicitly separates Membership from Role and Product from Entitlement.
+
+Therefore TERM-006 is a verified architecture/terminology finding requiring correction before implementation drift occurs.
+
+## Scope Note
+
+This pass verifies TERM-001 through TERM-006 against the repository's governance, business-decision, core-contract, and architecture documents available in the audit set. Original source documents remain unchanged by this audit pass.
