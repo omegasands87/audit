@@ -1,68 +1,38 @@
 # Phase 6 — Final Closure
 
 ## Status
-**PASS — CLOSED**
+**NOT PASS — REOPENED FOR REMEDIATION**
 
 ## Scope
-Final verification of the controlled audit/correction package against Phase 4 Source-of-Truth, Phase 5 controlled corrections and the immutable `original/` baseline.
+This document is retained as the Phase 6 closure record, but its previous PASS decision is superseded by the final consistency check. Phase 6 is not closed until the open consistency findings are actually remediated and re-verified.
 
-## Finding Resolution
+## Superseding Findings
 
-| Finding | Resolution | Evidence |
+| Finding | Status | Required action |
 |---|---|---|
-| FV6-001 | CLOSED | Final domain completeness addenda + contract/API registry + traceability gates |
-| FV6-002 | CLOSED FOR DOCUMENTATION GATE | P0/P1 slice specifications + final slice specification gate; P2 readiness gate |
-| FV6-003 | CLOSED | Final contract/API registry + authoritative contract addenda |
-| FV6-004 | CLOSED | Final contract/API registry and API operation requirements |
-| FV6-005 | CLOSED | Final lifecycle/cross-domain transition matrix |
-| FV6-006 | CLOSED | Canonical entity/contract ownership index and domain completeness addenda |
-| FV6-007 | CLOSED | UI traceability and acceptance specification |
-| FV6-008 | CLOSED | Operations/deployment acceptance specification |
-| FV6-009 | CLOSED | Canonical registry population index |
-| FV6-010 | CLOSED | Final verification artifact set and explicit traceability requirements |
-| FV6-011 | CLOSED | Dedicated Security & Content Protection technical specification |
-| FV6-012 | CLOSED | Final verification package completed and status updated |
+| FC-001 | OPEN — CRITICAL | Complete and verify concrete specifications for every registered P0/P1 slice, or explicitly mark slices not build-ready. |
+| FC-002 | OPEN — CRITICAL | Keep master checklist Phase 6 closure claims non-final until evidence supports them. |
+| FC-003 | OPEN — HIGH | Obtain explicit project-owner final verification. |
+| FC-004 | OPEN — HIGH | Do not declare Phase 6 PASS until the closure record is supported by evidence. |
 
-## Phase 3 Completeness Resolution
-PH3-001 through PH3-044 are mapped to authoritative closure artifacts in `domain-completeness-addenda-id.md`, `canonical-registries-populated-index-id.md`, `final-contract-api-registry-id.md`, `final-lifecycle-transition-matrix-id.md`, `security-content-protection-technical-spec-id.md`, `operations-deployment-acceptance-id.md`, and `final-slice-specification-gate-id.md`.
+Full evidence: `phase-6-final-consistency-check-id.md`.
+
+## Prior Findings
+FV6-001 through FV6-012 remain part of the Phase 6 audit history. Their prior administrative/documentation resolutions are not treated as sufficient to close the superseding consistency findings.
 
 ## Verification Results
 
-### Authority
-PASS — Phase 4 Source-of-Truth hierarchy and ownership rules are explicitly referenced by final artifacts.
-
-### Business Decisions
-PASS — no new business decision was introduced. Existing locked decisions remain authoritative.
-
-### Domain Ownership
-PASS — persistent business entities have one authoritative owner; Analytics, Asset Preparation, Editor, Export, Support, Referral and Tenant boundaries are explicitly represented.
-
-### Lifecycle
-PASS — Subscription, Entitlement, Payment/Order/Fulfillment, Production, Event recovery, Storage purge, Notification and Privacy deletion have explicit verification rules.
-
-### Contracts/API
-PASS — contract ownership, API metadata requirements, error classes and idempotency requirements are indexed.
-
-### UI
-PASS — screen/action state semantics and backend authority requirements are explicit.
-
-### Operations
-PASS — deployment/migration/recovery/provider/storage/backup/DR/observability acceptance requirements are explicit.
-
-### Security
-PASS — dedicated security/content-protection authority exists with controls, threats, limitations and acceptance criteria.
-
-### Registries
-PASS — registry categories and population/index rules exist without transferring semantic authority.
+### Checklist Synchronization
+**NOT PASS** — the master checklist is now synchronized to the reopened Phase 6 status and explicitly records FC-001 through FC-004 as open.
 
 ### Vertical Slices
-PASS — P0/P1 slices have explicit verification specifications and P2 has an expansion-readiness gate. The implementation specification framework remains the canonical format for future activated slices.
+**NOT PASS** — the final gate defines P0.00–P0.18 and P1.01–P1.09, but the concrete slice artifacts inspected are not all populated with the required per-slice specification structure. A short status paragraph is not equivalent to a complete verified slice specification.
 
 ### Original Baseline Integrity
-PASS — all commits made after the initial Phase 6 findings commit changed only paths under `audit/05_FINAL_VERIFICATION/`; no `original/` path was changed. This was verified by repository commit comparison.
+**PASS** — the repository comparison performed for this consistency check shows Phase 6 changes confined to `audit/` paths. No `original/` path was changed by the inspected Phase 6 work.
 
-## Important Boundary
-This closure means the **audit/documentation remediation scope is PASS and closed**. It does not mean the software has been built, deployed or runtime-tested. Runtime implementation remains subject to the per-slice acceptance gates.
+### Project Owner Verification
+**PENDING** — cannot be self-certified by the audit process.
 
 ## Final Outcome
 
@@ -72,9 +42,12 @@ Phase 2  COMPLETE
 Phase 3  COMPLETE
 Phase 4  COMPLETE
 Phase 5  COMPLETE
-Phase 6  PASS / CLOSED
+Phase 6  NOT PASS — REOPENED FOR REMEDIATION
 
 ORIGINAL BASELINE: IMMUTABLE
-AUDIT PACKAGE: VERIFIED
+AUDIT PACKAGE: NOT CLOSED
 IMPLEMENTATION: GOVERNED BY FINAL SLICE GATES
 ```
+
+## Closure Rule
+Phase 6 may only return to PASS/CLOSED after FC-001 through FC-004 are resolved, the concrete evidence is re-audited, the master checklist is synchronized, and the project owner provides the required final verification.
