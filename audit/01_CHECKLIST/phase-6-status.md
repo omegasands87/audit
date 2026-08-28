@@ -4,7 +4,7 @@
 **COMPLETE — PASS / CLOSED**
 
 ## Checklist Synchronization
-The master audit checklist retains its historical Phase 1–5 entries. This Phase 6 status file is the phase-specific synchronization record and must be read together with the master checklist and `05_FINAL_VERIFICATION/phase-6-final-closure-id.md`.
+The master audit checklist is the single audit progress tracker. This phase-specific status file is supporting evidence and must remain synchronized with `audit/01_CHECKLIST/audit-checklist.md` and `05_FINAL_VERIFICATION/phase-6-final-closure-id.md`.
 
 ## Phase 6 Items
 - [x] Re-audit all corrected documents
@@ -30,7 +30,7 @@ The master audit checklist retains its historical Phase 1–5 entries. This Phas
 - Phase 3 trace IDs: PH3-001 through PH3-044 mapped to closure artifacts.
 
 ## Integrity
-No Phase 6 write touched `original/`. Repository comparison from the Phase 6 findings baseline to the final Phase 6 commit shows only additions under `audit/05_FINAL_VERIFICATION/` and the Phase 6 status record under `audit/01_CHECKLIST/`.
+No Phase 6 write touched `original/`. All Phase 6 verification/correction artifacts are stored under `audit/`.
 
 ## Boundary
 PASS means the audit/documentation correction package is closed. It does not represent runtime software acceptance; implementation must still pass the per-slice gates.
