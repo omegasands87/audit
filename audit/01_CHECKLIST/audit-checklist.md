@@ -277,51 +277,46 @@
 - [x] COMPLETE — Website concept remains unchanged
 
 ## Phase 6 — Final Verification
-- [x] COMPLETE — Re-audit all corrected documents
+- [~] PARTIAL — Re-audit all corrected documents — re-audit performed; final consistency check found unsupported completion claims.
 - [x] COMPLETE — Document all Phase 6 findings before correction
-- [x] COMPLETE — Resolve all Phase 6 findings within audit/documentation scope
-- [x] COMPLETE — Verify all identified Phase 3 completeness IDs have closure evidence
-- [x] COMPLETE — Verify contract/API coverage
-- [x] COMPLETE — Verify lifecycle/cross-domain recovery coverage
-- [x] COMPLETE — Verify domain ownership coverage
-- [x] COMPLETE — Verify UI/design traceability
-- [x] COMPLETE — Verify operations/deployment acceptance
-- [x] COMPLETE — Verify security/content protection technical authority
-- [x] COMPLETE — Verify canonical registries/indexes
-- [x] COMPLETE — Verify vertical-slice implementation gates
-- [x] COMPLETE — Verify P2 expansion-readiness gate
+- [~] PARTIAL — Resolve all Phase 6 findings within audit/documentation scope — FC-001 through FC-004 remain OPEN.
+- [~] PARTIAL — Verify all identified Phase 3 completeness IDs have closure evidence — mapping exists, but concrete evidence requires revalidation.
+- [~] PARTIAL — Verify contract/API coverage — indexed, but final completeness remains subject to open findings.
+- [~] PARTIAL — Verify lifecycle/cross-domain recovery coverage — matrix exists; final closure remains open.
+- [~] PARTIAL — Verify domain ownership coverage — coverage exists; final cross-document verification remains open.
+- [~] PARTIAL — Verify UI/design traceability — specification exists; final completeness remains open.
+- [~] PARTIAL — Verify operations/deployment acceptance — specification exists; final completeness remains open.
+- [~] PARTIAL — Verify security/content protection technical authority — specification exists; final completeness remains open.
+- [~] PARTIAL — Verify canonical registries/indexes — index exists; final completeness remains open.
+- [~] PARTIAL — Verify vertical-slice implementation gates — gate exists, but registered slices are not all complete concrete specifications.
+- [~] PARTIAL — Verify P2 expansion-readiness gate — gate exists; final closure remains open.
 - [x] COMPLETE — Verify `original/` unchanged after Phase 6 changes
-- [x] COMPLETE — Record final PASS/closure decision
+- [ ] NOT STARTED — Project owner final verification — requires explicit owner confirmation
+- [ ] NOT STARTED — Record final PASS/closure decision — cannot be recorded while FC-001 through FC-004 remain open
 
-### Phase 6 Evidence
-- Phase 6 initial findings: **11 substantive + 1 administrative**.
-- All 11 substantive findings have documented resolution artifacts in `05_FINAL_VERIFICATION/`.
-- The administrative finding was resolved by establishing the Phase 6 verification package.
-- PH3-001 through PH3-044 are mapped to closure evidence.
+### Phase 6 Consistency Check
+- [x] COMPLETE — Final consistency check executed against checklist, Phase 6 status and closure evidence
+- [x] COMPLETE — FC-001 recorded: registered P0/P1 slice set is not fully backed by complete concrete slice specifications
+- [x] COMPLETE — FC-002 recorded: prior Phase 6 completion claims were premature
+- [x] COMPLETE — FC-003 recorded: project-owner verification cannot be self-certified
+- [x] COMPLETE — FC-004 recorded: final closure document overstated verification scope
+- [x] COMPLETE — `original/` integrity checked; no Phase 6 change touched `original/`
+- [x] COMPLETE — Phase 6 status reopened to NOT PASS / REOPENED FOR REMEDIATION
+
+## Phase 6 Evidence
+- Initial Phase 6 findings: **11 substantive + 1 administrative**.
+- Final consistency check findings: **4 additional integrity/closure findings (FC-001 through FC-004)**.
+- FC-001 through FC-004 are documented in `05_FINAL_VERIFICATION/phase-6-final-consistency-check-id.md`.
+- Phase 6 status is currently **NOT PASS — REOPENED FOR REMEDIATION**.
 - `original/` remains immutable.
-- The Phase 6 status record and final closure report provide the phase-level evidence.
-
-### Phase 6 Controlled Verification Outputs
-- [x] COMPLETE — Phase 6 Pass 01 findings register
-- [x] COMPLETE — Contract/API final registry
-- [x] COMPLETE — Lifecycle transition matrix
-- [x] COMPLETE — Domain completeness addenda
-- [x] COMPLETE — Canonical registries populated index
-- [x] COMPLETE — Vertical-slice specification gate
-- [x] COMPLETE — Operations/deployment acceptance specification
-- [x] COMPLETE — Security/content protection technical specification
-- [x] COMPLETE — UI traceability/acceptance specification
-- [x] COMPLETE — P0/P1 slice verification specifications
-- [x] COMPLETE — P2 expansion-readiness gate
-- [x] COMPLETE — Phase 6 status record
-- [x] COMPLETE — Phase 6 final closure record
 
 ## Final Integrity Rules
 - [x] COMPLETE — `original/` is immutable and was not modified by Phase 6.
 - [x] COMPLETE — Corrected/verification artifacts are outside `original/`.
-- [x] COMPLETE — Findings were recorded before correction.
-- [x] COMPLETE — Phase 6 evidence is linked to the master checklist.
+- [x] COMPLETE — Findings are recorded before correction.
+- [x] COMPLETE — Master checklist is the single audit progress tracker.
 - [x] COMPLETE — Runtime implementation acceptance remains governed by vertical-slice gates and is not implied by documentation closure.
+- [ ] NOT STARTED — Final audit PASS/closure until all open consistency findings are resolved.
 
 ## Audit Output Structure
 
@@ -343,10 +338,10 @@ Phase 2 — Deep Cross-Document Audit      COMPLETE
 Phase 3 — Full Completeness Audit        COMPLETE
 Phase 4 — Source-of-Truth Reconciliation COMPLETE
 Phase 5 — Controlled Corrections         COMPLETE
-Phase 6 — Final Verification             COMPLETE — PASS / CLOSED
+Phase 6 — Final Verification             NOT PASS — REOPENED FOR REMEDIATION
 
 original/                                IMMUTABLE
 Website concept                           UNCHANGED
-Audit/documentation package               VERIFIED
+Audit/documentation package               NOT CLOSED
 Runtime software                          NOT IMPLIED BY AUDIT CLOSURE
 ```
